@@ -14,16 +14,25 @@ public class Loan {
 	public Loan(String id, User user, Book book, LocalDate loanDate, LocalDate dueDate) {
 			this.id = id;
 			this.user = user;
-			this.book = book;
+			this.book =book;
 			this.loanDate = loanDate;
 			this.dueDate = dueDate; 
 			this.returnDate = null; 
 			this.fine = null; 
 		
 	}
-	public boolean Overdue() {
-			
-	}
+	   public boolean isOverdue() {
+	        return returnDate != null && returnDate.isAfter(dueDate);
+	    }
+
+	    public void markReturned(LocalDate returnDate, FeePolicy policy) {
+	        this.returnDate = returnDate;
+	        if (isOverdue()) {
+	            int daysLate = (int) ChronoUnit.DAYS.between(dueDate, returnDate);
+	            double fineAmount = policy.calculateFine(daysLate);
+	            this.fine = new Fine(fineAmount, this);
+	        }
+	    }
 	
     // setters & getters
     public String getId() {
