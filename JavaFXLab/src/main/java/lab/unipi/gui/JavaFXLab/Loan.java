@@ -22,7 +22,7 @@ public class Loan {
 		
 	}
 	public boolean Overdue() {
-			
+		return true;
 	}
 	
     // setters & getters
