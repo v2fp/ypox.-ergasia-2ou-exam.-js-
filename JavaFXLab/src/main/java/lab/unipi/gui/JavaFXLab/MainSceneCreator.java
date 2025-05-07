@@ -52,5 +52,10 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void handle(MouseEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
