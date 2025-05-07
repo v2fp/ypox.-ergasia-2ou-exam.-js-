@@ -2,7 +2,7 @@ package lab.unipi.gui.JavaFXLab;
 
 import java.util.concurrent.Flow;
 
-import com.sun.glass.events.MouseEvent;
+import javafx.scene.input.MouseEvent;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
