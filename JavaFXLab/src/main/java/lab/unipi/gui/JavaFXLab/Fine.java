@@ -1,65 +1,56 @@
 package lab.unipi.gui.JavaFXLab;
-import java.time.LocalDate;
 
 public class Fine {
-	private double amount;
-	private Loan loan;
-	private boolean paid;
-	private LocalDate issuedDate;
-	private LocalDate paymentDate;
-	
-	public Fine(double amount, Loan loan) {
-        this.amount = amount;
+
+    private static int counter = 1;
+
+    private int id;
+    private Loan loan;
+    private double amount;
+    private String paymentStatus; // Pending, Paid
+
+    public Fine(int overdueDays, Loan loan) {
+        this.id = counter++;
         this.loan = loan;
-        this.paid = false;
-        this.issuedDate = LocalDate.now();
-		
-	}
-	
-	   public void markAsPaid() {
-	        this.paid = true;
-	        this.paymentDate = LocalDate.now();
-	    }
+        this.amount = calculateFine(overdueDays);
+        this.paymentStatus = "Pending";
+    }
 
-	    public boolean isPaid() {
-	        return paid;
-	    }
+    public double calculateFine(int overdueDays) {
+        // 1€ per day, maximum 10€
+        return Math.min(10.0, overdueDays);
+    }
 
-	    // setters & getters
-	    public double getAmount() {
-	        return amount;
-	    }
+    public void markAsPaid() {
+        this.paymentStatus = "Paid";
+    }
 
-	    public Loan getLoan() {
-	        return loan;
-	    }
+    // setters & getters
+    public int getId() {
+        return id;
+    }
 
-	    public LocalDate getIssuedDate() {
-	        return issuedDate;
-	    }
+    public Loan getLoan() {
+        return loan;
+    }
 
-	    public LocalDate getPaymentDate() {
-	        return paymentDate;
-	    }
+    public double getAmount() {
+        return amount;
+    }
 
-	    public void setAmount(double amount) {
-	        this.amount = amount;
-	    }
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
 
-	    public void setLoan(Loan loan) {
-	        this.loan = loan;
-	    }
+    public void setLoan(Loan loan) {
+        this.loan = loan;
+    }
 
-	    public void setIssuedDate(LocalDate issuedDate) {
-	        this.issuedDate = issuedDate;
-	    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-	    public void setPaymentDate(LocalDate paymentDate) {
-	        this.paymentDate = paymentDate;
-	    }
-
-	    public void setPaid(boolean paid) {
-	        this.paid = paid;
-	    }
-
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 }
