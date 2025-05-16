@@ -1,10 +1,12 @@
 package lab.unipi.gui.JavaFXLab;
 
+/*
 import ergasia.ArrayList;
 import ergasia.Book;
 import ergasia.Override;
 import ergasia.Scanner;
 import ergasia.String;
+*/
 
 public class Book {
     private String isbn;
@@ -118,5 +120,5 @@ public class Book {
 }
     
     
-}
+} 
 

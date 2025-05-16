@@ -1,9 +1,7 @@
 package lab.unipi.gui.JavaFXLab;
 
 import java.util.concurrent.Flow;
-
 import javafx.scene.input.MouseEvent;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,7 +14,6 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 	// Main scene buttons
 	Button bookBtn, studentBtn, loanBtn, paymentBtn;
 	public MainSceneCreator(double width, double height) {
-		super(width, height);
 		super(width, height);
 		rootFlowPane = new FlowPane();
 		bookBtn = new Button("Book");
@@ -37,25 +34,14 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 		rootFlowPane.getChildren().add(paymentBtn);
 	}
 	@Override
-	Scene createScene() { return new Scene (rootFlowPane, width, height); }
+	Scene createScene() {
+		return new Scene (rootFlowPane, width, height); }
 	
 	@Override
-	public void handle(lab.unipi.gui.JavaFXLab.MouseEvent event) {
-		if(event.getSource()== bookBtn) {
-			App.primaryStage.setScene(App.bookScene);
-			App.primaryStage.setScene("Book window");
-		}
-		
-	}
-	@Override
-	public void handle(lab.unipi.gui.JavaFXLab.MouseEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void handle(MouseEvent event) {
-		// TODO Auto-generated method stub
-		
+		if(event.getSource() == bookBtn) {
+			App.primaryStage.setScene(App.bookScene);
+			App.primaryStage.setTitle("Book window"); 
+		}
 	}
-
 }
