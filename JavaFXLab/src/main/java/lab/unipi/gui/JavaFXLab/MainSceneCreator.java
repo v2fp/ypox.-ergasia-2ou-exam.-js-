@@ -25,7 +25,7 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 		bookBtn.setOnMouseClicked(this);
 		
 		//set up Flow pane
-		rootFlowPane.setHgap(10);
+		rootFlowPane.setHgap(50);
 		rootFlowPane.setAlignment(Pos.CENTER);
 		// add book, student, loan and payment buttons to rootFlowPane
 		rootFlowPane.getChildren().add(bookBtn);
@@ -42,6 +42,18 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 		if(event.getSource() == bookBtn) {
 			App.primaryStage.setScene(App.bookScene);
 			App.primaryStage.setTitle("Book window"); 
+		}
+		if(event.getSource() == studentBtn); {
+			App.primaryStage.setScene(App.studentScene);
+			App.primaryStage.setTitle("Student window"); 
+		}
+		if(event.getSource() == loanBtn); {
+			App.primaryStage.setScene(App.loanScene);
+			App.primaryStage.setTitle("Loan window"); 
+		}
+		if(event.getSource() == paymentBtn); {
+			App.primaryStage.setScene(App.paymentScene);
+			App.primaryStage.setTitle("Payment window"); 
 		}
 	}
 }

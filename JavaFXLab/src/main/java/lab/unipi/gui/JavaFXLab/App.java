@@ -23,6 +23,12 @@ public class App extends Application {
         primaryStage.setScene(mainScene);
         primaryStage.setTitle("LibraryMainFX Window");
         primaryStage.show();
+        
+        SceneCreator StudentSceneCreator = new StudentSceneCreator(650, 300);
+        studentScene = StudentSceneCreator.createScene();
+        primaryStage.setScene(mainScene);
+        primaryStage.setTitle("LibraryMainFX Window");
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
