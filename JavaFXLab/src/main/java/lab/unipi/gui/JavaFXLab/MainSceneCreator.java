@@ -46,15 +46,15 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
             App.primaryStage.setScene(App.bookScene);
             App.primaryStage.setTitle("Book window"); 
         }
-        if(event.getSource() == studentBtn); {
+        else if(event.getSource() == studentBtn) {
         	App.primaryStage.setScene(App.studentScene);
             App.primaryStage.setTitle("Student window"); 
         }
-        if(event.getSource() == loanBtn); {
+        else if(event.getSource() == loanBtn) {
             App.primaryStage.setScene(App.loanScene);
             App.primaryStage.setTitle("Loan window"); 
         }
-        if(event.getSource() == paymentBtn); {
+        else if(event.getSource() == paymentBtn) {
             App.primaryStage.setScene(App.paymentScene);
             App.primaryStage.setTitle("Payment window"); 
         } 
