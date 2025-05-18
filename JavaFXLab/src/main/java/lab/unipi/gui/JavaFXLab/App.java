@@ -6,11 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-
 public class App extends Application {
 
     static Stage primaryStage;
-    static Scene mainScene, bookScene;
+    static Scene mainScene, bookScene, studentScene, loanScene, paymentScene;
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -29,8 +28,21 @@ public class App extends Application {
         primaryStage.setScene(mainScene);
         primaryStage.setTitle("LibraryMainFX Window");
         primaryStage.show();
-    }
 
+    	SceneCreator LoanSceneCreator = new LoanSceneCreator(650, 300);
+    	loanScene = LoanSceneCreator.createScene();
+    	primaryStage.setScene(mainScene);
+    	primaryStage.setTitle("LibraryMainFX Window");
+    	primaryStage.show();
+    	
+    	SceneCreator PaymentSceneCreator = new PaymentSceneCreator(650, 300);
+    	paymentScene = PaymentSceneCreator.createScene();
+    	primaryStage.setScene(mainScene);
+    	primaryStage.setTitle("LibraryMainFX Window");
+    	primaryStage.show();
+    }
+    	
+    	
     public static void main(String[] args) {
         launch();
     }

@@ -16,13 +16,16 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
     public MainSceneCreator(double width, double height) {
         super(width, height);
         rootFlowPane = new FlowPane();
-        bookBtn = new Button("Book");
-        studentBtn = new Button("Student");
-        loanBtn = new Button("Loan");
-        paymentBtn = new Button("Payment");
+        bookBtn = new Button("Διαχείριση Βιβλίων");
+        studentBtn = new Button("Διαχειριση φοιτητων");
+        loanBtn = new Button("Διαχείριση Δανεισμών");
+        paymentBtn = new Button("Διαχείριση Πληρομών");
 
         // attach handle event to bookBtn;
         bookBtn.setOnMouseClicked(this);
+        studentBtn.setOnMouseClicked(this);
+        loanBtn.setOnMouseClicked(this);
+        paymentBtn.setOnMouseClicked(this);
 
         //set up Flow pane
         rootFlowPane.setHgap(50);
@@ -54,7 +57,7 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
         if(event.getSource() == paymentBtn); {
             App.primaryStage.setScene(App.paymentScene);
             App.primaryStage.setTitle("Payment window"); 
-        }
+        } 
     }
 }
 

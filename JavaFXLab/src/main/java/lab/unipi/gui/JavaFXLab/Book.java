@@ -1,10 +1,8 @@
 package lab.unipi.gui.JavaFXLab;
 
-import ergasia.ArrayList;
-import ergasia.Book;
-import ergasia.Override;
-import ergasia.Scanner;
-import ergasia.String;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Book {
     private String isbn;
@@ -116,7 +114,3 @@ public class Book {
     	System.out.println("Το βιβλίο προστέθηκε με επιτυχία!");
 	}
 }
-    
-    
-}
-
