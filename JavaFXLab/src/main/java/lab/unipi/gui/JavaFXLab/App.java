@@ -12,8 +12,8 @@ public class App extends Application {
     static Scene mainScene, bookScene, studentScene, loanScene, paymentScene;
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-
+        App.primaryStage = primaryStage;
+ 
         SceneCreator mainSceneCreator = new MainSceneCreator(650, 300);
         mainScene = mainSceneCreator.createScene();
 
