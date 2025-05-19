@@ -139,12 +139,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     @Override
     Scene createScene() {
     	return new Scene (rootGridPane, width, height); }
-<<<<<<< HEAD
 
-=======
-    	
-    
->>>>>>> f2ea094268d9cd418fcfa0db0d296026a542cbaa
     @Override
     public void handle(MouseEvent event) {
     	if (event.getSource() == backBtn) {

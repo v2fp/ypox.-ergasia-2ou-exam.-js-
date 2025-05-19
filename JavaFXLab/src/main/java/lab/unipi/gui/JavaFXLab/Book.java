@@ -93,7 +93,7 @@ public class Book {
                "Category: " + category + "\n" +
                "Available: " + (isAvailable ? "Yes" : "No");
     }
-	public static void addBook(ArrayList<Book> books, Scanner scanner) {
+	public static void addBook(ArrayList<Bok> books, Scanner scanner) {
     	System.out.println("----- Προσθήκη Νέου Βιβλίου -----");
     	System.out.print("ISBN: ");
     	String isbn = scanner.nextLine();
