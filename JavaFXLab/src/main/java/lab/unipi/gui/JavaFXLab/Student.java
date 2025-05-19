@@ -49,6 +49,7 @@ public class Student extends User {// υπολαση του user
                "Max Books: " + maxBooks;
     }
 }
+<<<<<<< HEAD
 package lab.unipi.gui.JavaFXLab;
 
     public class Librarian extends User {
@@ -89,3 +90,5 @@ package lab.unipi.gui.JavaFXLab;
                    "Education Level: " + educationLevel;
         }
     }
+=======
+>>>>>>> ae597bd79dd7683e8d9cb90da59dd4cd5df7db67
