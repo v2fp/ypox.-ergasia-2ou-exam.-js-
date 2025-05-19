@@ -162,9 +162,24 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	}
     		
     	else if(event.getSource() == editbookBtn) {
+    		String title = titleField.getText();
+    		String author = authorField.getText();
+    		String isbn = isbnField.getText();
+    		String publisher = publisherField.getText();
+    		int year = Integer.parseInt(yearField.getText());
+    		String category = categoryField.getText();
+    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
     		
+    		editBook(title,author,isbn,publisher,year,category,availability);
+    		
+    		tableSync();
+    		ClearTextFields();
     	}
     	else if(event.getSource() == deletebookBtn) {
+    		deleteBook(titleField.getText());
+    		
+    		tableSync();
+    		ClearTextFields();
     	
     	}
     	
@@ -173,6 +188,27 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	Book b = new Book(title,author,isbn,publisher,year,category,availability);
 		bookList.add(b);
 	}
+    public void editBook(String title, String author, String isbn, String publisher, int year, String category, Boolean availability) {
+    	for(Book b: bookList) {
+    		if ((b.getTitle()).equals(title)) {
+    			b.setAuthor(author);
+    			b.setIsbn(isbn);
+    			b.setPublisher(publisher);
+    			b.setYear(year);
+    			b.setCategory(category);
+    			b.setAvailable(availability);
+    		}
+    	}
+    }
+    public void deleteBook(String title) {
+    	for(int i = 0; i < bookList.size(); i++) {
+    		if (bookList.get(i).getTitle().equals(title)) {
+    			bookList.remove(i);
+    		}
+    	}
+    }
+    
+    
     public void tableSync() {
     	List<Book> items = bookTableView.getItems();
     	items.clear();
@@ -192,4 +228,5 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	availabilityField.setText("");
     	
     }
+    
 }
