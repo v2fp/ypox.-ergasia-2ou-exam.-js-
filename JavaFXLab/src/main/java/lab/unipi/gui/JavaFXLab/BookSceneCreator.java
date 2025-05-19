@@ -4,13 +4,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class BookSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 	// List of books
@@ -58,14 +62,14 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         inputFieldsPane = new GridPane();
         bookTableView = new TableView<>();
         
-     // attach handle event to bookBtn;
+     // attach handle event
         backBtn.setOnMouseClicked(this);
         newbookBtn.setOnMouseClicked(this);
         editbookBtn.setOnMouseClicked(this);
         deletebookBtn.setOnMouseClicked(this);
 
         //set up Flow pane
-        buttonFlowPane.setHgap(10);
+        buttonFlowPane.setHgap(5);
         buttonFlowPane.setAlignment(Pos.BOTTOM_CENTER);
         // add book, student, loan and payment buttons to rootFlowPane
         buttonFlowPane.getChildren().add(backBtn);
@@ -99,16 +103,98 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         rootGridPane.add(bookTableView, 0,0);
         rootGridPane.add(buttonFlowPane,0,2);
         rootGridPane.add(backBtn, 1, 2);
+        
+        //Customize tableView
+        TableColumn<Book, String> nameColumn = new TableColumn<>("title");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        bookTableView.getColumns().add(nameColumn);
+        
+        TableColumn<Book, String> authorColumn = new TableColumn<>("author");
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        bookTableView.getColumns().add(authorColumn);
+        
+        TableColumn<Book, String> isbnColumn = new TableColumn<>("isbn");
+        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        bookTableView.getColumns().add(isbnColumn);
+        
+        TableColumn<Book, String> publisherColumn = new TableColumn<>("publisher");
+        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        bookTableView.getColumns().add(publisherColumn);
+        
+        TableColumn<Book, String> yearColumn = new TableColumn<>("year");
+        yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+        bookTableView.getColumns().add(yearColumn);
+        
+        TableColumn<Book, String> categoryColumn = new TableColumn<>("category");
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        bookTableView.getColumns().add(categoryColumn);
+        
+        TableColumn<Book, String> availabilityColumn = new TableColumn<>("availability");
+        availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
+        bookTableView.getColumns().add(availabilityColumn);
+        
+        
     }
 
     @Override
     Scene createScene() {
     	return new Scene (rootGridPane, width, height); }
+<<<<<<< HEAD
 
+=======
+    	
+    
+>>>>>>> f2ea094268d9cd418fcfa0db0d296026a542cbaa
     @Override
     public void handle(MouseEvent event) {
-        // TODO Auto-generated method stub
-        
+    	if (event.getSource() == backBtn) {
+    		App.primaryStage.setTitle("ZooMainFX Window");
+    		App.primaryStage.setScene(App.mainScene);
+    	}
+    	else if(event.getSource() == newbookBtn) {
+    		String title = titleField.getText();
+    		String author = authorField.getText();
+    		String isbn = isbnField.getText();
+    		String publisher = publisherField.getText();
+    		int year = Integer.parseInt(yearField.getText());
+    		String category = categoryField.getText();
+    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
+    		
+    		createBook(title,author,isbn,publisher,year,category,availability);
+    		
+    		tableSync();
+    		ClearTextFields();
+    	}
+    		
+    	else if(event.getSource() == editbookBtn) {
+    		
+    	}
+    	else if(event.getSource() == deletebookBtn) {
+    	
+    	}
+    	
     }
-
+    public void createBook (String title, String author, String isbn, String publisher, int year, String category, Boolean availability) {
+    	Book b = new Book(title,author,isbn,publisher,year,category,availability);
+		bookList.add(b);
+	}
+    public void tableSync() {
+    	List<Book> items = bookTableView.getItems();
+    	items.clear();
+    	for (Book b : bookList) {
+    		if (b instanceof Book) {
+    			items.add((Book) b);
+    		}
+    	}
+    }
+    public void ClearTextFields() {
+    	titleField.setText("");
+    	authorField.setText("");
+    	isbnField.setText("");
+    	publisherField.setText("");
+    	yearField.setText("");
+    	categoryField.setText("");
+    	availabilityField.setText("");
+    	
+    }
 }

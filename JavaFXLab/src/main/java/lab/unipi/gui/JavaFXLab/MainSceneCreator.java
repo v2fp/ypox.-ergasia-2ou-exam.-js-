@@ -28,7 +28,7 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
         paymentBtn.setOnMouseClicked(this);
 
         //set up Flow pane
-        rootFlowPane.setHgap(50);
+        rootFlowPane.setHgap(30);
         rootFlowPane.setAlignment(Pos.CENTER);
         // add book, student, loan and payment buttons to rootFlowPane
         rootFlowPane.getChildren().add(bookBtn);
