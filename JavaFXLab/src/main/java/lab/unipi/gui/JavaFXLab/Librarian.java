@@ -1,10 +1,10 @@
 package lab.unipi.gui.JavaFXLab;
 
-    public class Librarian extends User {
+    public class Librarian extends User {//υποκλαση του user
         private String workDepartment;
         private String educationLevel;
 
-        // Constructor
+        //Constructor
         public Librarian(int id, String firstName, String lastName, String phone, String email, String birthDate,
                          String workDepartment, String educationLevel) {
             super(id, firstName, lastName, phone, email, birthDate);
@@ -12,7 +12,7 @@ package lab.unipi.gui.JavaFXLab;
             this.educationLevel = educationLevel;
         }
 
-        // Getters
+        //Getters
         public String getWorkDepartment() {
             return workDepartment;
         }
@@ -21,7 +21,7 @@ package lab.unipi.gui.JavaFXLab;
             return educationLevel;
         }
 
-        // Setters
+        //Setters
         public void setWorkDepartment(String workDepartment) {
             this.workDepartment = workDepartment;
         }
@@ -30,7 +30,7 @@ package lab.unipi.gui.JavaFXLab;
             this.educationLevel = educationLevel;
         }
 
-        // toString
+        //toString
         @Override
         public String toString() {
             return super.toString() + "\n" +

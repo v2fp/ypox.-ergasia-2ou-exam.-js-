@@ -1,7 +1,7 @@
 package lab.unipi.gui.JavaFXLab;
 
 
-import java.util.ArrayList;
+import java.util.ArrayList;//εισαγουμε τα array lists 
 import java.util.Scanner;
 
 public class Book {

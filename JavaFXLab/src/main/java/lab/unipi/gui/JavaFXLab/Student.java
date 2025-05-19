@@ -1,11 +1,11 @@
 package lab.unipi.gui.JavaFXLab;
 
-public class Student extends User {
+public class Student extends User {// υπολαση του user
     private String studentId;
     private String department;
     private int maxBooks;
 
-    // Constructor
+    //Constructor
     public Student(int id, String firstName, String lastName, String phone, String email, String birthDate,
                    String studentId, String department, int maxBooks) {
         super(id, firstName, lastName, phone, email, birthDate);
@@ -14,7 +14,7 @@ public class Student extends User {
         this.maxBooks = maxBooks;
     }
 
-    // Getters
+    //Getters
     public String getStudentId() {
         return studentId;
     }
@@ -27,7 +27,7 @@ public class Student extends User {
         return maxBooks;
     }
 
-    // Setters
+    //Setters
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
@@ -40,7 +40,7 @@ public class Student extends User {
         this.maxBooks = maxBooks;
     }
 
-    // toString
+    //toString
     @Override
     public String toString() {
         return super.toString() + "\n" +
@@ -55,7 +55,7 @@ package lab.unipi.gui.JavaFXLab;
         private String workDepartment;
         private String educationLevel;
 
-        // Constructor
+        //Constructor
         public Librarian(int id, String firstName, String lastName, String phone, String email, String birthDate,
                          String workDepartment, String educationLevel) {
             super(id, firstName, lastName, phone, email, birthDate);
@@ -63,7 +63,7 @@ package lab.unipi.gui.JavaFXLab;
             this.educationLevel = educationLevel;
         }
 
-        // Getters
+        //Getters
         public String getWorkDepartment() {
             return workDepartment;
         }
@@ -72,7 +72,7 @@ package lab.unipi.gui.JavaFXLab;
             return educationLevel;
         }
 
-        // Setters
+        //Setters
         public void setWorkDepartment(String workDepartment) {
             this.workDepartment = workDepartment;
         }
@@ -81,7 +81,7 @@ package lab.unipi.gui.JavaFXLab;
             this.educationLevel = educationLevel;
         }
 
-        // toString
+        //toString
         @Override
         public String toString() {
             return super.toString() + "\n" +
