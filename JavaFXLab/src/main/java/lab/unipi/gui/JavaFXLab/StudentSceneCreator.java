@@ -95,25 +95,25 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    rootGridPane.add(backBtn, 1, 2);
 	    
 	    //Customize tableView
-	    TableColumn<Book, String> nameColumn = new TableColumn<>("name");
+	    TableColumn<Student, String> nameColumn = new TableColumn<>("name");
 	    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 	    studentTableView.getColumns().add(nameColumn);
 	    
-	    TableColumn<Book, String> authorColumn = new TableColumn<>("am");
-	    authorColumn.setCellValueFactory(new PropertyValueFactory<>("am"));
-	    studentTableView.getColumns().add(authorColumn);
+	    TableColumn<Student, String> amColumn = new TableColumn<>("am");
+	    amColumn.setCellValueFactory(new PropertyValueFactory<>("am"));
+	    studentTableView.getColumns().add(amColumn);
 	    
-	    TableColumn<Book, String> isbnColumn = new TableColumn<>("email");
-	    isbnColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-	    studentTableView.getColumns().add(isbnColumn);
+	    TableColumn<Student, String> emailColumn = new TableColumn<>("email");
+	    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+	    studentTableView.getColumns().add(emailColumn);
 	    
-	    TableColumn<Book, String> publisherColumn = new TableColumn<>("class");
-	    publisherColumn.setCellValueFactory(new PropertyValueFactory<>("class"));
-	    studentTableView.getColumns().add(publisherColumn);
+	    TableColumn<Student, String> classColumn = new TableColumn<>("class");
+	    classColumn.setCellValueFactory(new PropertyValueFactory<>("class"));
+	    studentTableView.getColumns().add(classColumn);
 	    
-	    TableColumn<Book, String> yearColumn = new TableColumn<>("YoB");
-	    yearColumn.setCellValueFactory(new PropertyValueFactory<>("YoB"));
-	    studentTableView.getColumns().add(yearColumn);
+	    TableColumn<Student, String> yobColumn = new TableColumn<>("YoB");
+	    yobColumn.setCellValueFactory(new PropertyValueFactory<>("YoB"));
+	    studentTableView.getColumns().add(yobColumn);
     
     }
 
