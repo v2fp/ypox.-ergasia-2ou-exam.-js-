@@ -143,7 +143,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     @Override
     public void handle(MouseEvent event) {
     	if (event.getSource() == backBtn) {
-    		App.primaryStage.setTitle("ZooMainFX Window");
+    		App.primaryStage.setTitle("LibraryMainFX Window");
     		App.primaryStage.setScene(App.mainScene);
     	}
     	else if(event.getSource() == newbookBtn) {

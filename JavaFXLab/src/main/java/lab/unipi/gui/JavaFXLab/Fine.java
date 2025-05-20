@@ -27,8 +27,6 @@ public class Fine {
     private static int counter = 1;
 
     private int id;
-    private Loan loan;
-    private double amount;
     private String paymentStatus; // Pending, Paid
 
 	    // setters & getters
@@ -53,10 +51,6 @@ public class Fine {
 	    public LocalDate getIssuedDate() {
 	        return issuedDate;
 	    }
-    public void markAsPaid() {
-        this.paymentStatus = "Paid";
-    }
-
 
 	    public LocalDate getPaymentDate() {
 	        return paymentDate;
@@ -64,20 +58,6 @@ public class Fine {
     // setters & getters
     public int getId() {
         return id;
-    }
-
-	    public void setAmount(double amount) {
-	        this.amount = amount;
-	    }
-    public Loan getLoan() {
-        return loan;
-    }
-
-	    public void setLoan(Loan loan) {
-	        this.loan = loan;
-	    }
-    public double getAmount() {
-        return amount;
     }
 
 	    public void setIssuedDate(LocalDate issuedDate) {
