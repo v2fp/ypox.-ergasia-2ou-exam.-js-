@@ -5,6 +5,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -27,9 +28,9 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	// Grid Panes
     GridPane rootGridPane, inputFieldsPane;
     // Labels
-    Label nameLbl, amLbl, emailLbl, classLbl, dobLbl;
+    Label nameLbl, amLbl, emailLbl, classLbl, phoneLbl, dobLbl;
     // TextFields
-    TextField nameField, amField, emailField, classField, dobField;
+    TextField nameField, amField, emailField, classField, phoneField, dobField;
     // TableView
     TableView<Student> studentTableView;
     
@@ -43,11 +44,13 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		amLbl = new Label("AM:");
 		emailLbl = new Label("Email: ");
 		classLbl = new Label("Class: ");
+		phoneLbl = new Label("Phone: ");
 		dobLbl = new Label("Date of Birth: "); 
 		nameField = new TextField();
 		amField = new TextField();
 		emailField = new TextField();
 		classField = new TextField();
+		phoneField = new TextField();
 		dobField = new TextField();
 		backBtn = new Button("Επιστροφή στην αρχική");
 	    newstudentBtn = new Button("Εγγραφή νέου φοιτητή");
@@ -126,7 +129,68 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		if (event.getSource() == backBtn) {
 			App.primaryStage.setTitle("LibraryMainFX Window");
 			App.primaryStage.setScene(App.mainScene);
+
 		}
-	
+		else if(event.getSource() == newstudentBtn) {
+    		String name = nameField.getText();
+    		String am = amField.getText();
+    		String email = emailField.getText();
+    		String Class = classField.getText();
+    		int phone = Integer.parseInt(phoneField.getText());
+    		String dob = dobField.getText();
+    		
+    		
+    		createStudent(name,am,email,Class,phone,dob);
+    		
+    		tableSync();
+    		ClearTextFields();
+    	}
+    		
+    	else if(event.getSource() == updatestudentBtn) {
+    		String name = nameField.getText();
+    		String am = amField.getText();
+    		String email = emailField.getText();
+    		String Class = classField.getText();
+    		String phone = phoneField.getText();
+    		String dob = dobField.getText();
+    		
+    		updatestudent(name,am,email,Class,phone,dob);
+    		
+    		tableSync();
+    		ClearTextFields();
+    	}
 	}
+	public void createStudent(String name, String am, String email, String Class, String phone, String dob){
+		for(Student s: studentList) {
+    		if ((s.getFirstName()).equals(name)) {
+    			s.setFirstName(name);
+    			s.setStudentId(am);
+    			s.setEmail(email);
+    			s.setDepartment(Class);
+    			s.setPhone(phone);
+    			s.setBirthDate(dob);
+    		}
+    	}
+	}
+	public void updatestudent(String name, String am, String email, String Class, String phone, String dob) {
+		
+	}
+	
+    public void tableSync() {
+    	List<Student> items = studentTableView.getItems();
+    	items.clear();
+    	for (Student s : studentList) {
+    		if (s instanceof Student) {
+    			items.add((Student) s);
+    		}
+    	}
+    }
+    public void ClearTextFields() {
+    	nameField.setText("");
+    	amField.setText("");
+    	emailField.setText("");
+    	classField.setText("");
+    	phoneField.setText("");
+    	dobField.setText("");    	
+    }
 }
