@@ -60,10 +60,10 @@ public class App extends Application {
     	
     	//Dummy Students (PREPEI NA TA VALOUME SE LISTA)
     	Student student1 = new Student(01, "Joe", "Smith", "6912345678", "JoeSmith@gmail.com", "21-05-2003", "E24194", "Digital Systems", 5);
-    	Student student2 = new Student(02, "Jane", "Jacobs","6978553556", "JaneJacbos@gmail.com", "31-12-1999","E20110", "Economics", 9);
-    	Student student3 = new Student(03, "Julie", "Georgiou","6942717220", "JulieGe@gmail.com", "15-12-2006", "E24167", "Digital Systems", 1);
+    	Student student2 = new Student(02, "Jane", "Jacobs","6978553556", "JaneJacbos@gmail.com", "31-12-1999","E20110", "Economics", 5);
+    	Student student3 = new Student(03, "Julie", "Georgiou","6942717220", "JulieGe@gmail.com", "15-12-2006", "E24167", "Digital Systems", 5);
     	Student student4 = new Student(04, "Giannis", "Giannopoulos", "6981325430", "G.Giannopoulos@gmail.com", "04-07-2005", "E23010", "Digital Systems", 7);
-    	Student student5 = new Student(05, "Anne", "Doe", "6930219087", "AnneDoe@gmail.com", "10-04-2006", "E24189", "Economics", 3);
+    	Student student5 = new Student(05, "Anne", "Doe", "6930219087", "AnneDoe@gmail.com", "10-04-2006", "E24189", "Economics", 5);
     	}
     		
 

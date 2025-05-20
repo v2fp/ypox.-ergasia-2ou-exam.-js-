@@ -28,9 +28,9 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	// Grid Panes
     GridPane rootGridPane, inputFieldsPane;
     // Labels
-    Label nameLbl, amLbl, emailLbl, classLbl, phoneLbl, dobLbl;
+    Label idLbl, nameLbl, lastLbl, amLbl, emailLbl, classLbl, phoneLbl, dobLbl, maxLbl;
     // TextFields
-    TextField nameField, amField, emailField, classField, phoneField, dobField;
+    TextField idField, nameField, lastField, amField, emailField, classField, phoneField, dobField, maxField;
     // TableView
     TableView<Student> studentTableView;
     
@@ -39,19 +39,25 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		// initialize fields
 		studentList = new ArrayList<>();
 		rootGridPane = new GridPane();
-		buttonFlowPane = new FlowPane();	
-		nameLbl = new Label("Name: ");
-		amLbl = new Label("AM:");
+		buttonFlowPane = new FlowPane();
+		idLbl = new Label("id: ");
+		nameLbl = new Label("First name: ");
+		lastLbl = new Label("Last name: ");
+		amLbl = new Label("AM: ");
 		emailLbl = new Label("Email: ");
 		classLbl = new Label("Class: ");
 		phoneLbl = new Label("Phone: ");
-		dobLbl = new Label("Date of Birth: "); 
+		dobLbl = new Label("Date of Birth: ");
+		maxLbl = new Label("Max books to be borrowed");
+		idField = new TextField();
 		nameField = new TextField();
+		lastField = new TextField();
 		amField = new TextField();
 		emailField = new TextField();
 		classField = new TextField();
 		phoneField = new TextField();
 		dobField = new TextField();
+		maxField = new TextField();
 		backBtn = new Button("Επιστροφή στην αρχική");
 	    newstudentBtn = new Button("Εγγραφή νέου φοιτητή");
 	    updatestudentBtn = new Button("Επεξεργασία Στοιχείων Φοιτητή");
@@ -78,16 +84,22 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    inputFieldsPane.setAlignment(Pos.TOP_RIGHT);
 	    inputFieldsPane.setVgap(10);
 	    inputFieldsPane.setHgap(10);
-	    inputFieldsPane.add(nameLbl, 0,	0);
-	    inputFieldsPane.add(nameField, 1, 0);
-	    inputFieldsPane.add(amLbl, 0, 1);
-	    inputFieldsPane.add(amField,1,1);
-	    inputFieldsPane.add(emailLbl, 0, 2);
-	    inputFieldsPane.add(emailField,1,2);
-	    inputFieldsPane.add(classLbl, 0, 3);
-	    inputFieldsPane.add(classField,1,3);
-	    inputFieldsPane.add(dobLbl, 0, 4);
-	    inputFieldsPane.add(dobField,1,4);
+	    inputFieldsPane.add(idLbl, 0, 0);
+	    inputFieldsPane.add(idField, 1, 0);
+	    inputFieldsPane.add(nameLbl, 0,	1);
+	    inputFieldsPane.add(nameField, 1, 1);
+	    inputFieldsPane.add(lastLbl, 0, 2);
+	    inputFieldsPane.add(lastField,1,2);
+	    inputFieldsPane.add(amLbl, 0, 3);
+	    inputFieldsPane.add(amField, 1,3);
+	    inputFieldsPane.add(emailLbl, 0, 4);
+	    inputFieldsPane.add(emailField,1,4);
+	    inputFieldsPane.add(classLbl, 0, 5);
+	    inputFieldsPane.add(classField,1,5);
+	    inputFieldsPane.add(dobLbl, 0, 6);
+	    inputFieldsPane.add(dobField,1,6);
+	    inputFieldsPane.add(maxLbl, 0, 7);
+	    inputFieldsPane.add(maxLbl, 1, 7);
 	    
 	    //customize rootScene
 	    rootGridPane.setVgap(10);
@@ -98,9 +110,17 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    rootGridPane.add(backBtn, 1, 2);
 	    
 	    //Customize tableView
-	    TableColumn<Student, String> nameColumn = new TableColumn<>("name");
-	    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+	    TableColumn<Student, String> idColumn = new TableColumn<>("Id");
+	    idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+	    studentTableView.getColumns().add(idColumn);
+	    
+	    TableColumn<Student, String> nameColumn = new TableColumn<>("first name");
+	    nameColumn.setCellValueFactory(new PropertyValueFactory<>("first name"));
 	    studentTableView.getColumns().add(nameColumn);
+	    
+	    TableColumn<Student, String> lastColumn = new TableColumn<>("last name");
+	    lastColumn.setCellValueFactory(new PropertyValueFactory<>("last name"));
+	    studentTableView.getColumns().add(lastColumn);
 	    
 	    TableColumn<Student, String> amColumn = new TableColumn<>("am");
 	    amColumn.setCellValueFactory(new PropertyValueFactory<>("am"));
@@ -117,6 +137,10 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    TableColumn<Student, String> yobColumn = new TableColumn<>("YoB");
 	    yobColumn.setCellValueFactory(new PropertyValueFactory<>("YoB"));
 	    studentTableView.getColumns().add(yobColumn);
+	    
+	    TableColumn<Student, String> maxColumn = new TableColumn<>("Max");
+	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("Max"));
+	    studentTableView.getColumns().add(maxColumn);
     
     }
 
@@ -132,27 +156,33 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 
 		}
 		else if(event.getSource() == newstudentBtn) {
+			String id = idField.getText();
     		String name = nameField.getText();
+    		String last = lastField.getText();
     		String am = amField.getText();
     		String email = emailField.getText();
     		String Class = classField.getText();
-    		int phone = Integer.parseInt(phoneField.getText());
+    		String phone = phoneField.getText();
     		String dob = dobField.getText();
+    		String max = maxField.getText();
     		
     		
-    		createStudent(name,am,email,Class,phone,dob);
+    		createStudent(id,name,last,am,email,Class,phone,dob,max);
     		
     		tableSync();
     		ClearTextFields();
     	}
     		
     	else if(event.getSource() == updatestudentBtn) {
+    		int id =idField.getText();
     		String name = nameField.getText();
+    		String last = lastField.getText();
     		String am = amField.getText();
     		String email = emailField.getText();
     		String Class = classField.getText();
     		String phone = phoneField.getText();
     		String dob = dobField.getText();
+    		String max = maxField.getText();
     		
     		updatestudent(name,am,email,Class,phone,dob);
     		
@@ -160,20 +190,25 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     		ClearTextFields();
     	}
 	}
-	public void createStudent(String name, String am, String email, String Class, String phone, String dob){
+	public void createstudent(int id, String name, String last, String am, String email, String Class, String phone, String dob, int max) {
+		Student s = new Student( id, name, last, am, email, Class, phone, dob, max); //allagh
+		studentList.add(s);
+	}
+	
+	public void updatestudent(int id,String name, String last, String am, String email, String Class, String phone, String dob, int max){
 		for(Student s: studentList) {
-    		if ((s.getFirstName()).equals(name)) {
+    		if ((s.getId(id)).equals(id)) {
+    			s.setId(id);
     			s.setFirstName(name);
+    			s.setLastName(last);
     			s.setStudentId(am);
     			s.setEmail(email);
     			s.setDepartment(Class);
     			s.setPhone(phone);
     			s.setBirthDate(dob);
+    			s.setMaxBooks(max);
     		}
     	}
-	}
-	public void updatestudent(String name, String am, String email, String Class, String phone, String dob) {
-		
 	}
 	
     public void tableSync() {
