@@ -5,8 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import project02.Motorcycle;
-import project02.Vehicle;
 
 public class App extends Application {
 
