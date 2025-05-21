@@ -1,5 +1,7 @@
 package lab.unipi.gui.JavaFXLab;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -7,9 +9,13 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
+	
     static Stage primaryStage;
     static Scene mainScene, bookScene, studentScene, loanScene, paymentScene;
+    
+    static ArrayList<Book> bookList = new ArrayList<>();
+    static ArrayList<Student> studentList = new ArrayList<>();
+    
     @Override
     public void start(Stage primaryStage) {
         App.primaryStage = primaryStage;
@@ -56,13 +62,31 @@ public class App extends Application {
     	Book book9 = new Book("944-234-555-111-5", "To Kill a Mockingbird", "Harper Lee", "Goodreads", 1960, "thriller", true);
     	Book book10= new Book("132-123-234-555-0", "20th Century Boys", "Naoki Urasawa", "VizMedia", 1969, "Mystery", false);
     	
+    	bookList.add(book1);
+    	bookList.add(book2);
+    	bookList.add(book3);
+    	bookList.add(book4);
+    	bookList.add(book5);
+    	bookList.add(book6);
+    	bookList.add(book7);
+    	bookList.add(book8);
+    	bookList.add(book9);
+    	bookList.add(book10);
+    	
     	//Dummy Students (PREPEI NA TA VALOUME SE LISTA)
     	Student student1 = new Student(01, "Joe", "Smith", "6912345678", "JoeSmith@gmail.com", "21-05-2003", "E24194", "Digital Systems", 5);
     	Student student2 = new Student(02, "Jane", "Jacobs","6978553556", "JaneJacbos@gmail.com", "31-12-1999","E20110", "Economics", 5);
     	Student student3 = new Student(03, "Julie", "Georgiou","6942717220", "JulieGe@gmail.com", "15-12-2006", "E24167", "Digital Systems", 5);
     	Student student4 = new Student(04, "Giannis", "Giannopoulos", "6981325430", "G.Giannopoulos@gmail.com", "04-07-2005", "E23010", "Digital Systems", 7);
     	Student student5 = new Student(05, "Anne", "Doe", "6930219087", "AnneDoe@gmail.com", "10-04-2006", "E24189", "Economics", 5);
-    	}
+    	
+    	studentList.add(student1);
+    	studentList.add(student2);
+    	studentList.add(student3);
+    	studentList.add(student4);
+    	studentList.add(student5);
+    
+    }
     		
 
 }

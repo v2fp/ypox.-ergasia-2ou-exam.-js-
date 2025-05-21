@@ -189,7 +189,20 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     		tableSync();
     		ClearTextFields();
     	}
-	}
+    	else if(event.getSource() == historyBtn) {
+    		int id = Integer.parseInt(idField.getText());
+    		String name = nameField.getText();
+    		String last = lastField.getText();
+    		String am = amField.getText();
+    		String email = emailField.getText();
+    		String Class = classField.getText();
+    		String phone = phoneField.getText();
+    		String dob = dobField.getText();
+    		int max = Integer.parseInt(maxField.getText());
+	    	viewhistory(id,name,last,am,email,Class,phone,dob,max);
+    				
+   		}
+   	}
 	public void createstudent(int id, String name, String last, String am, String email, String Class, String phone, String dob, int maxBooks) {
 		Student s = new Student( id, name, last, am, email, Class, phone, dob, maxBooks); //allagh
 		studentList.add(s);
@@ -209,6 +222,13 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     			s.setMaxBooks(max);
     		}
     	}
+	}
+	public void viewhistory(int id,String name, String last, String am, String email, String Class, String phone, String dob, int max) {
+		for (Student s: studentList) {
+			if ((s.getId()) == id) {
+			// το id κάνει match με φοιτητή, επομένως εμφανίζει το ιστορικό στο grid pane
+			}
+		}
 	}
 	
     public void tableSync() {
