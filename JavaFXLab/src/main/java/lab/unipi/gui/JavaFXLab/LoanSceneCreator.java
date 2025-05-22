@@ -49,8 +49,4 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
             this.fine = null;
         }
     }
-<<<<<<< HEAD
 
-=======
-}
->>>>>>> 84e52ed1d378c566c5078c01153cf5bd1832d62f
