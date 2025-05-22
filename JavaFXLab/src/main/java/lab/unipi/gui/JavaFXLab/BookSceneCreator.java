@@ -81,12 +81,12 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         inputFieldsPane.setAlignment(Pos.TOP_RIGHT);
         inputFieldsPane.setVgap(10);
         inputFieldsPane.setHgap(10);
-        inputFieldsPane.add(titleLbl, 0,	0);
-        inputFieldsPane.add(titleField, 1, 0);
-        inputFieldsPane.add(authorLbl, 0, 1);
-        inputFieldsPane.add(authorField,1,1);
-        inputFieldsPane.add(isbnLbl, 0, 2);
-        inputFieldsPane.add(isbnField,1,2);
+        inputFieldsPane.add(titleLbl, 0, 1);
+        inputFieldsPane.add(titleField,1,1);
+        inputFieldsPane.add(authorLbl, 0, 2);
+        inputFieldsPane.add(authorField,1,2);
+        inputFieldsPane.add(isbnLbl, 0, 0);
+        inputFieldsPane.add(isbnField,1,0);
         inputFieldsPane.add(publisherLbl, 0, 3);
         inputFieldsPane.add(publisherField,1,3);
         inputFieldsPane.add(yearLbl, 0, 4);
@@ -105,6 +105,10 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         rootGridPane.add(backBtn, 1, 2);
         
         //Customize tableView
+        TableColumn<Book, String> isbnColumn = new TableColumn<>("isbn");
+        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        bookTableView.getColumns().add(isbnColumn);
+        
         TableColumn<Book, String> nameColumn = new TableColumn<>("title");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         bookTableView.getColumns().add(nameColumn);
@@ -113,15 +117,11 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         bookTableView.getColumns().add(authorColumn);
         
-        TableColumn<Book, String> isbnColumn = new TableColumn<>("isbn");
-        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        bookTableView.getColumns().add(isbnColumn);
-        
         TableColumn<Book, String> publisherColumn = new TableColumn<>("publisher");
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         bookTableView.getColumns().add(publisherColumn);
         
-        TableColumn<Book, String> yearColumn = new TableColumn<>("year");
+        TableColumn<Book, Number> yearColumn = new TableColumn<>("year");
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
         bookTableView.getColumns().add(yearColumn);
         
@@ -129,7 +129,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         bookTableView.getColumns().add(categoryColumn);
         
-        TableColumn<Book, String> availabilityColumn = new TableColumn<>("availability");
+        TableColumn<Book, Boolean> availabilityColumn = new TableColumn<>("availability");
         availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
         bookTableView.getColumns().add(availabilityColumn);
         
@@ -147,34 +147,47 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		App.primaryStage.setScene(App.mainScene);
     	}
     	else if(event.getSource() == newbookBtn) {
-    		String title = titleField.getText();
-    		String author = authorField.getText();
-    		String isbn = isbnField.getText();
-    		String publisher = publisherField.getText();
-    		int year = Integer.parseInt(yearField.getText());
-    		String category = categoryField.getText();
-    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
+    		try {	
+	    		String title = titleField.getText();
+	    		String author = authorField.getText();
+	    		String isbn = isbnField.getText();
+	    		String publisher = publisherField.getText();
+	    		int year = Integer.parseInt(yearField.getText());
+	    		String category = categoryField.getText();
+	    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
     		
-    		createBook(title,author,isbn,publisher,year,category,availability);
-    		
-    		tableSync();
-    		ClearTextFields();
+	    		createBook(title,author,isbn,publisher,year,category,availability);		
+	    		tableSync();
+	    		ClearTextFields();
+	    		AlertManager.infoAlert("Book added.", "The book was added to the list.");
+    		} catch (NumberFormatException e) {
+    			AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
+    		}catch (Exception e) {
+    			AlertManager.unexpectedAlert();
+    		}
     	}
     		
     	else if(event.getSource() == editbookBtn) {
-    		String title = titleField.getText();
-    		String author = authorField.getText();
-    		String isbn = isbnField.getText();
-    		String publisher = publisherField.getText();
-    		int year = Integer.parseInt(yearField.getText());
-    		String category = categoryField.getText();
-    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
-    		
-    		editBook(title,author,isbn,publisher,year,category,availability);
-    		
-    		tableSync();
-    		ClearTextFields();
+    		try {
+	    		String title = titleField.getText();
+	    		String author = authorField.getText();
+	    		String isbn = isbnField.getText();
+	    		String publisher = publisherField.getText();
+	    		int year = Integer.parseInt(yearField.getText());
+	    		String category = categoryField.getText();
+	    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
+	    		
+	    		editBook(title,author,isbn,publisher,year,category,availability);
+	    		tableSync();
+	    		ClearTextFields();
+	    		AlertManager.infoAlert("Book updated.", "The book's contents were adjusted");
+			}catch (NumberFormatException e) {
+				AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
+			}catch (Exception e) {
+				AlertManager.unexpectedAlert();
+			}
     	}
+	   	
     	else if(event.getSource() == deletebookBtn) {
     		deleteBook(titleField.getText());
     		
