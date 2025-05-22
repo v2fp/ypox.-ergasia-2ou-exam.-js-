@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -92,14 +93,16 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    inputFieldsPane.add(lastField,1,2);
 	    inputFieldsPane.add(amLbl, 0, 3);
 	    inputFieldsPane.add(amField, 1,3);
-	    inputFieldsPane.add(emailLbl, 0, 4);
-	    inputFieldsPane.add(emailField,1,4);
-	    inputFieldsPane.add(classLbl, 0, 5);
-	    inputFieldsPane.add(classField,1,5);
-	    inputFieldsPane.add(dobLbl, 0, 6);
-	    inputFieldsPane.add(dobField,1,6);
-	    inputFieldsPane.add(maxLbl, 0, 7);
-	    inputFieldsPane.add(maxField, 1, 7);
+	    inputFieldsPane.add(phoneLbl, 0, 4);
+	    inputFieldsPane.add(phoneField, 1, 4);
+	    inputFieldsPane.add(emailLbl, 0, 5);
+	    inputFieldsPane.add(emailField,1,5);
+	    inputFieldsPane.add(classLbl, 0, 6);
+	    inputFieldsPane.add(classField,1,6);
+	    inputFieldsPane.add(dobLbl, 0, 7);
+	    inputFieldsPane.add(dobField,1,7);
+	    inputFieldsPane.add(maxLbl, 0, 8);
+	    inputFieldsPane.add(maxField,1,8);
 	    
 	    //customize rootScene
 	    rootGridPane.setVgap(10);
@@ -111,35 +114,39 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    
 	    //Customize tableView
 	    TableColumn<Student, String> idColumn = new TableColumn<>("Id");
-	    idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+	    idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 	    studentTableView.getColumns().add(idColumn);
 	    
 	    TableColumn<Student, String> nameColumn = new TableColumn<>("first name");
-	    nameColumn.setCellValueFactory(new PropertyValueFactory<>("first name"));
+	    nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 	    studentTableView.getColumns().add(nameColumn);
 	    
 	    TableColumn<Student, String> lastColumn = new TableColumn<>("last name");
-	    lastColumn.setCellValueFactory(new PropertyValueFactory<>("last name"));
+	    lastColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 	    studentTableView.getColumns().add(lastColumn);
 	    
 	    TableColumn<Student, String> amColumn = new TableColumn<>("am");
-	    amColumn.setCellValueFactory(new PropertyValueFactory<>("am"));
+	    amColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
 	    studentTableView.getColumns().add(amColumn);
+	    
+	    TableColumn<Student, String> phoneColumn = new TableColumn<>("phone");
+	    phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+	    studentTableView.getColumns().add(phoneColumn);
 	    
 	    TableColumn<Student, String> emailColumn = new TableColumn<>("email");
 	    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 	    studentTableView.getColumns().add(emailColumn);
 	    
 	    TableColumn<Student, String> classColumn = new TableColumn<>("class");
-	    classColumn.setCellValueFactory(new PropertyValueFactory<>("class"));
+	    classColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
 	    studentTableView.getColumns().add(classColumn);
 	    
 	    TableColumn<Student, String> yobColumn = new TableColumn<>("YoB");
-	    yobColumn.setCellValueFactory(new PropertyValueFactory<>("YoB"));
+	    yobColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 	    studentTableView.getColumns().add(yobColumn);
 	    
-	    TableColumn<Student, String> maxColumn = new TableColumn<>("Max");
-	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("Max"));
+	    TableColumn<Student, Number> maxColumn = new TableColumn<>("Max");
+	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("maxBooks"));
 	    studentTableView.getColumns().add(maxColumn);
     
     }
@@ -156,38 +163,65 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 
 		}
 		else if(event.getSource() == newstudentBtn) {
-			int id = Integer.parseInt(idField.getText());
-    		String name = nameField.getText();
-    		String last = lastField.getText();
-    		String am = amField.getText();
-    		String email = emailField.getText();
-    		String Class = classField.getText();
-    		String phone = phoneField.getText();
-    		String dob = dobField.getText();
-    		int max =Integer.parseInt(maxField.getText());
+			try {
+				int id = Integer.parseInt(idField.getText());
+	    		String name = nameField.getText();
+	    		String last = lastField.getText();
+	    		String am = amField.getText();
+	    		String email = emailField.getText();
+	    		String Class = classField.getText();
+	    		String phone = phoneField.getText();
+	    		String dob = dobField.getText();
+	    		int max =Integer.parseInt(maxField.getText());
     		
-    		
-    		createstudent(id,name,last,am,email,Class,phone,dob,max);
-    		
-    		tableSync();
-    		ClearTextFields();
+	    		createstudent(id,name,last,am,email,Class,phone,dob,max);
+	    		tableSync();
+	    		ClearTextFields();
+	    		
+	    		Alert alertType = new Alert(Alert.AlertType.INFORMATION);
+				alertType.setTitle("student added");
+				alertType.setContentText("The student was added to the list.");
+			}catch (NumberFormatException e) {
+				Alert alertType = new Alert(Alert.AlertType.ERROR);
+				alertType.setTitle("Invalid value");
+				alertType.setContentText("Invalid input type. \n Exception message: "+ e.getMessage());
+    	    } catch (Exception e) {
+    	    	Alert alertType = new Alert(Alert.AlertType.ERROR);
+				alertType.setTitle("Error");
+				alertType.setContentText("An unexpected Error occured");
+				alertType.show();
+    	    }	
     	}
     		
     	else if(event.getSource() == updatestudentBtn) {
-    		int id = Integer.parseInt(idField.getText());
-    		String name = nameField.getText();
-    		String last = lastField.getText();
-    		String am = amField.getText();
-    		String email = emailField.getText();
-    		String Class = classField.getText();
-    		String phone = phoneField.getText();
-    		String dob = dobField.getText();
-    		int max = Integer.parseInt(maxField.getText());
-    		
-    		updatestudent(id, name,last,am,email,Class,phone,dob,max);
-    		
-    		tableSync();
-    		ClearTextFields();
+    		try {
+	    		int id = Integer.parseInt(idField.getText());
+	    		String name = nameField.getText();
+	    		String last = lastField.getText();
+	    		String am = amField.getText();
+	    		String email = emailField.getText();
+	    		String Class = classField.getText();
+	    		String phone = phoneField.getText();
+	    		String dob = dobField.getText();
+	    		int max = Integer.parseInt(maxField.getText());
+	    		
+	    		updatestudent(id, name,last,am,email,Class,phone,dob,max);
+	    		
+	    		tableSync();
+	    		ClearTextFields();
+	    		Alert alertType = new Alert(Alert.AlertType.INFORMATION);
+				alertType.setTitle("student added");
+				alertType.setContentText("The student was added to the list.");
+			}catch (NumberFormatException e) {
+				Alert alertType = new Alert(Alert.AlertType.ERROR);
+				alertType.setTitle("Invalid value");
+				alertType.setContentText("Invalid input type. \n Exception message: "+ e.getMessage());
+		    } catch (Exception e) {
+		    	Alert alertType = new Alert(Alert.AlertType.ERROR);
+				alertType.setTitle("Error");
+				alertType.setContentText("An unexpected Error occured");
+				alertType.show();	
+		    }
     	}
     	else if(event.getSource() == historyBtn) {
     		int id = Integer.parseInt(idField.getText());
@@ -241,8 +275,12 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     	}
     }
     public void ClearTextFields() {
+    	idField.setText("");
     	nameField.setText("");
+    	lastField.setText("");
     	amField.setText("");
+    	maxField.setText("");
+    	dobField.setText("");
     	emailField.setText("");
     	classField.setText("");
     	phoneField.setText("");
