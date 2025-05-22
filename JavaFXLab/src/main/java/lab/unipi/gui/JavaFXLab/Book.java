@@ -1,11 +1,5 @@
 package lab.unipi.gui.JavaFXLab;
 
-import ergasia.ArrayList;
-import ergasia.Book;
-import ergasia.Override;
-import ergasia.Scanner;
-import ergasia.String;
-
 public class Book {
     private String isbn;
     private String title;
@@ -95,28 +89,6 @@ public class Book {
                "Category: " + category + "\n" +
                "Available: " + (isAvailable ? "Yes" : "No");
     }
-	public static void addBook(ArrayList<Book> books, Scanner scanner) {
-    	System.out.println("----- Προσθήκη Νέου Βιβλίου -----");
-    	System.out.print("ISBN: ");
-    	String isbn = scanner.nextLine();
-    	System.out.print("Τίτλος: ");
-    	String title = scanner.nextLine();
-    	System.out.print("Συγγραφέας: ");
-    	String author = scanner.nextLine();
-    	System.out.print("Εκδότης: ");
-    	String publisher = scanner.nextLine();
-    	System.out.print("Έτος: ");
-    	int year = Integer.parseInt(scanner.nextLine());
-    	System.out.print("Κατηγορία: ");
-    	String category = scanner.nextLine();
-
-    	Book book = new Book(isbn, title, author, publisher, year, category, true);
-    	books.add(book);
-
-    	System.out.println("Το βιβλίο προστέθηκε με επιτυχία!");
-	}
-}
-    
-    
+ 
 }
 
