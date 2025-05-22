@@ -16,7 +16,7 @@ public class Fine {
         this.paymentStatus = "Pending";
     }
 
-    public double calculateFine(int overdueDays) {
+	public double calculateFine(int overdueDays) {
         // 1€ per day, maximum 10€
         return Math.min(10.0, overdueDays);
     }

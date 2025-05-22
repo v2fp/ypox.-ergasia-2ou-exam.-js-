@@ -19,8 +19,8 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
 	    private Fine fine;
 
 
-    public LoanSceneCreator(double 650, double 300) {
-        super(650, 300);
+    public LoanSceneCreator(double width, double height) {
+        super(width, height);
     
     }
 
@@ -50,78 +50,3 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
         }
     }
 
-
-    // setters & getters
-    public String getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public LocalDate getLoanDate() {
-        return loanDate;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public boolean isDelayed() {
-        return isDelayed;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Fine getFine() {
-        return fine;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public void setLoanDate(LocalDate loanDate) {
-        this.loanDate = loanDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public void setDelayed(boolean isDelayed) {
-        this.isDelayed = isDelayed;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setFine(Fine fine) {
-        this.fine = fine;
-    }
-
-}
