@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class BookSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 	// List of books
-	ArrayList<Book> bookList;
+	ArrayList<Book> bookList; 
 	// Flow Pane 
     FlowPane buttonFlowPane;
     // buttons
