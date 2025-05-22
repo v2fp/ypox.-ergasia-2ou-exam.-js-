@@ -1,10 +1,8 @@
 package lab.unipi.gui.JavaFXLab;
 
-import ergasia.ArrayList;
-import ergasia.Book;
-import ergasia.Override;
-import ergasia.Scanner;
-import ergasia.String;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Book {
     private String isbn;
@@ -13,17 +11,17 @@ public class Book {
     private String publisher;
     private int year;
     private String category;
-    private boolean isAvailable;
+    private boolean available;
 
     //Constructor
-    public Book(String isbn, String title, String author, String publisher, int year, String category, boolean isAvailable) {
+    public Book(String isbn, String title, String author, String publisher, int year, String category, boolean available) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.year = year;
         this.category = category;
-        this.isAvailable = isAvailable;
+        this.available = available;
     }
 
     //Getters
@@ -51,8 +49,8 @@ public class Book {
         return category;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public boolean getAvailable() {
+        return available;
     }
 
     //Setters
@@ -80,8 +78,8 @@ public class Book {
         this.category = category;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     //toString
@@ -93,7 +91,7 @@ public class Book {
                "Publisher: " + publisher + "\n" +
                "Year: " + year + "\n" +
                "Category: " + category + "\n" +
-               "Available: " + (isAvailable ? "Yes" : "No");
+               "Available: " + (available ? "Yes" : "No");
     }
 	public static void addBook(ArrayList<Book> books, Scanner scanner) {
     	System.out.println("----- Προσθήκη Νέου Βιβλίου -----");
@@ -116,7 +114,3 @@ public class Book {
     	System.out.println("Το βιβλίο προστέθηκε με επιτυχία!");
 	}
 }
-    
-    
-}
-
