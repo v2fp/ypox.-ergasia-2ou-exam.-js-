@@ -99,7 +99,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    inputFieldsPane.add(dobLbl, 0, 6);
 	    inputFieldsPane.add(dobField,1,6);
 	    inputFieldsPane.add(maxLbl, 0, 7);
-	    inputFieldsPane.add(maxLbl, 1, 7);
+	    inputFieldsPane.add(maxField, 1, 7);
 	    
 	    //customize rootScene
 	    rootGridPane.setVgap(10);
