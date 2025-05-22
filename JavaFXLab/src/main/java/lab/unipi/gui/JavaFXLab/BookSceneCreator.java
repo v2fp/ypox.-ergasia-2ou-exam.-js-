@@ -5,7 +5,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+@SuppressWarnings("unused")
 public class BookSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 	// List of books
 	ArrayList<Book> bookList;
@@ -38,7 +38,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     public BookSceneCreator(double width, double height) {
     	super(width, height);
     	
-    	// initialize fields
+    	// initialize fields, panes, labels, buttons, etc
     	bookList = new ArrayList<>();
     	rootGridPane = new GridPane();
     	buttonFlowPane = new FlowPane();	
@@ -147,7 +147,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		App.primaryStage.setTitle("LibraryMainFX Window");
     		App.primaryStage.setScene(App.mainScene);
     	}
-    	else if(event.getSource() == newbookBtn) {
+    	else if(event.getSource() == newbookBtn) { //button 1, φτιαχνυομε καινουργιο βιβλιο με τα fields που καναμε type
     		try {
 	    		String title = titleField.getText();
 	    		String author = authorField.getText();
@@ -157,22 +157,15 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 	    	    int year = Integer.parseInt(yearField.getText());
 	    	    Boolean availability = Boolean.parseBoolean(availabilityField.getText().trim());
   
-	    		createBook(title,author,isbn,publisher,year,category,availability);
+	    		createBook(title,author,isbn,publisher,year,category,availability); 
 	    		tableSync();
-	    		clearTextFields();
-	    		Alert alertType = new Alert(Alert.AlertType.INFORMATION);
-				alertType.setTitle("Book added");
-				alertType.setContentText("The book was added to the list.");
+	    		clearTextFields(); 
+	    		AlertManager.infoAlert("Book added.", "The book was added to the list.");
+	    		
     	    }catch (NumberFormatException e) {
-				Alert alertType = new Alert(Alert.AlertType.ERROR);
-				alertType.setTitle("Invalid value");
-				alertType.setContentText("Invalid input type. \n Exception message: "+ e.getMessage());
-				alertType.show();
+				AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
     	    } catch (Exception e) {
-    	    	Alert alertType = new Alert(Alert.AlertType.ERROR);
-				alertType.setTitle("Error");
-				alertType.setContentText("An unexpected Error occured");
-				alertType.show();
+    	    	AlertManager.unexpectedAlert();
     	    }	
     	}
     	
@@ -188,20 +181,12 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
   
 	    		editBook(title,author,isbn,publisher,year,category,availability);
 	    		tableSync();
-	    		clearTextFields();
-	    		Alert alertType = new Alert(Alert.AlertType.INFORMATION);
-				alertType.setTitle("Book edited");
-				alertType.setContentText("The book's information was adjusted");
+	    		clearTextFields(); 
+	    		AlertManager.infoAlert("Book edited.","The book's information was adjusted");
     	    }catch (NumberFormatException e) {
-				Alert alertType = new Alert(Alert.AlertType.ERROR);
-				alertType.setTitle("Invalid value");
-				alertType.setContentText("Invalid input type. \n Exception message: "+ e.getMessage());
-				alertType.show();
+				AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
     	    } catch (Exception e) {
-    	    	Alert alertType = new Alert(Alert.AlertType.ERROR);
-				alertType.setTitle("Error");
-				alertType.setContentText("An unexpected Error occured");
-				alertType.show();
+    	    	AlertManager.unexpectedAlert();
     	    }
     	}
     	else if(event.getSource() == deletebookBtn) {
