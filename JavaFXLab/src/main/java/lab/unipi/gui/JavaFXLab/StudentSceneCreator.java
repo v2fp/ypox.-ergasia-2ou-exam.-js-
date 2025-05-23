@@ -138,7 +138,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    studentTableView.getColumns().add(emailColumn);
 	    
 	    TableColumn<Student, String> classColumn = new TableColumn<>("class");
-	    classColumn.setCellValueFactory(new PropertyValueFactory<>("deparment"));
+	    classColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
 	    studentTableView.getColumns().add(classColumn);
 	    
 	    TableColumn<Student, String> yobColumn = new TableColumn<>("YoB");
@@ -280,7 +280,6 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		    hGridPane.add(new Label("Return Date"), 3, 0);
 		    hGridPane.add(new Label("Status"), 4, 0);
 		    int row = 1;
-		   
 		    
 		    for (Loan loan : loanList) {	//ψάχνουμε την λίστα δανεισμών, αν το id αντιστοιχεί σε φοιτητή τοτε εμφανίζει τα βιβλία 
 		        if (loan.getStudent().getId() == id) {

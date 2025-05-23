@@ -3,6 +3,7 @@ package lab.unipi.gui.JavaFXLab;
 public class Fine {
     private static int counter = 1;
 
+    private Student student;
     private int id;
     private Loan loan;
     private double amount;
@@ -22,6 +23,8 @@ public class Fine {
     }
 
     // Getters & setters
+ 
+    
     public int getId() {
         return id;
     }
@@ -49,6 +52,7 @@ public class Fine {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    
 
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;

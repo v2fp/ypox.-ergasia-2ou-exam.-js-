@@ -77,18 +77,5 @@ public class Book {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
-    //toString
-    /*@Override
-    public String toString() {
-        return "ISBN: " + isbn + "\n" +
-               "Title: " + title + "\n" +
-               "Author: " + author + "\n" +
-               "Publisher: " + publisher + "\n" +
-               "Year: " + year + "\n" +
-               "Category: " + category + "\n" +
-               "Available: " + (available ? "Yes" : "No");
-    }*/
- 
 }
 

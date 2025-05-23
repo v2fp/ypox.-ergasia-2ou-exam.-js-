@@ -59,7 +59,7 @@ public class Loan {
         return book;
     }
 
-    public User getStudent() {
+    public Student getStudent() {
         return student;
     }
 
