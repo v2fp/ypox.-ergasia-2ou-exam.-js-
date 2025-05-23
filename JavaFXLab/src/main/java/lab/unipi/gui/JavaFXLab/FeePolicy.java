@@ -1,11 +1,8 @@
-/*package lab.unipi.gui.JavaFXLab;
+package lab.unipi.gui.JavaFXLab;
 
 public class FeePolicy {
 	private double dailyRate;
 	private double maxFine;
-
-	public FeePolicy() {
-		// TODO Auto-generated constructor stub
 	public FeePolicy(double dailyRate, double maxFine) {
 		 this.dailyRate = dailyRate;
 	     this.maxFine = maxFine;
@@ -15,7 +12,6 @@ public class FeePolicy {
 	        double fine = overdueDays * dailyRate;
 	        return Math.min(fine, maxFine);
 	    }
-}
 	    // setters & getters
 	    public double getDailyRate() {
 	        return dailyRate;
@@ -32,4 +28,4 @@ public class FeePolicy {
 	    public void setMaxFine(double maxFine) {
 	        this.maxFine = maxFine;
 	    }
-	} */
+	} 

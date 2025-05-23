@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PaymentSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 	 // List of books
-	ArrayList<Payment> paymentList; 
+	ArrayList<Fine> paymentList; 
 	// Flow Pane 
     FlowPane buttonFlowPane;
     // buttons
@@ -30,7 +30,7 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
     // TextFields
     
     // TableView
-    TableView<Payment> paymentTableView;
+    TableView<Fine> paymentTableView;
     
     public PaymentSceneCreator(double width, double height) {
     	super(width,height);
@@ -45,7 +45,7 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
      entryBtn = new Button("Καταχώρηση πληρωμής προστίμου");
      paymentHistoryBtn = new Button("Προβολή ιστορικού πληρωμών");    
      inputFieldsPane = new GridPane();
-     PaymentTableView = new TableView<>();
+     paymentTableView = new TableView<>();
             
          // attach handle event
      backBtn.setOnMouseClicked(this);
@@ -54,10 +54,9 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
      paymentHistoryBtn.setOnMouseClicked(this);
 
         //set up Flow pane
-     buttonFlowPane.setHgap(5);
+     buttonFlowPane.setHgap(10);
      buttonFlowPane.setAlignment(Pos.BOTTOM_CENTER);
         // add back, pending payments, entry and payment history buttons to rootFlowPane
-     buttonFlowPane.getChildren().add(backBtn);
      buttonFlowPane.getChildren().add(pendingPaymentsBtn);
      buttonFlowPane.getChildren().add(entryBtn);
      buttonFlowPane.getChildren().add(paymentHistoryBtn);
@@ -66,13 +65,16 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
      inputFieldsPane.setAlignment(Pos.TOP_RIGHT);
      inputFieldsPane.setVgap(10);
      inputFieldsPane.setHgap(10);
+     
+     paymentTableView.setPrefWidth(600);
+     paymentTableView.setPrefHeight(400);
 
             
             //customize rootScene
      rootGridPane.setVgap(10);
      rootGridPane.setHgap(10);
      rootGridPane.add(inputFieldsPane, 1, 0);
-     rootGridPane.add(bookTableView, 0,0);
+     rootGridPane.add(paymentTableView, 0,0);
      rootGridPane.add(buttonFlowPane,0,2);
      rootGridPane.add(backBtn, 1, 2);
      }
@@ -87,5 +89,17 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
     		App.primaryStage.setTitle("LibraryMainFX Window");
         	App.primaryStage.setScene(App.mainScene);
         }
+    	else if (event.getSource() == pendingPaymentsBtn) {
+    		AlertManager.infoAlert("", "showing list of pending payments");
+    		for (Loan loan : loanList) {
+    			
+    		}
+    	}
+    	else if (event.getSource()== entryBtn) {
+    		
+    	}
+    	else if (event.getSource()==paymentHistoryBtn) {
+    		
+    	}
     }
 }

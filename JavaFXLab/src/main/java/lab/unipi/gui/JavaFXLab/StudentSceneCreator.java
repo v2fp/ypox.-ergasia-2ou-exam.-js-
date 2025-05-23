@@ -147,7 +147,14 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    TableColumn<Student, Number> maxColumn = new TableColumn<>("Max");
 	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("maxBooks"));
 	    studentTableView.getColumns().add(maxColumn);
-    
+	    
+	    //αρχικοποιούμε μερικούς φοιτητές
+	    studentList.add(new Student(1, "Joe", "Smith", "6912345678", "JoeSmith@gmail.com", "21-05-2003", "E24194", "Digital Systems", 5));
+        studentList.add(new Student(2, "Jane", "Jacobs", "6978553556", "JaneJacbos@gmail.com", "31-12-1999", "E20110", "Economics", 5));
+        studentList.add(new Student(3, "Julie", "Georgiou", "6942717220", "JulieGe@gmail.com", "15-12-2006", "E24167", "Digital Systems", 5));
+        studentList.add(new Student(4, "Giannis", "Giannopoulos", "6981325430", "G.Giannopoulos@gmail.com", "04-07-2005", "E23010", "Digital Systems", 7));
+        studentList.add(new Student(5, "Anne", "Doe", "6930219087", "AnneDoe@gmail.com", "10-04-2006", "E24189", "Economics", 5));
+        tableSync();
     }
 
 	@Override
@@ -273,7 +280,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		    int row = 1;
 		   
 		    
-		    for (Loan loan : loanList) {
+		    for (Loan loan : loanList) {	//ψάχνουμε την λίστα δανεισμών, αν το id αντιστοιχεί σε φοιτητή τοτε εμφανίζει τα βιβλία 
 		        if (loan.getStudent().getId() == id) {
 		            hGridPane.add(new Label(loan.getBook().getTitle()), 0, row);
 		            hGridPane.add(new Label(loan.getLoanDate().toString()), 1, row);

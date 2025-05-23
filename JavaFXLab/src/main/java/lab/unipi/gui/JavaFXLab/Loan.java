@@ -14,8 +14,9 @@ public class Loan {
     private boolean isDelayed;
     private String status; // Active, Completed, Overdue
     private Fine fine;
+    private FeePolicy feePolicy;
 
-    public Loan(String id, User user, Book book, LocalDate loanDate) {
+    public Loan(String id, User user, Book book, LocalDate loanDate, FeePolicy feePolicy) {
         this.id = id;
         this.user = user;
         this.book = book;
@@ -25,6 +26,7 @@ public class Loan {
         this.isDelayed = false;
         this.status = "Active";
         this.fine = null;
+        this.feePolicy = feePolicy;
     }
 
     // Method called when a book is returned
@@ -35,9 +37,10 @@ public class Loan {
             isDelayed = true;
             status = "Overdue";
             int daysLate = (int) ChronoUnit.DAYS.between(dueDate, actualReturnDate);
-            this.fine = new Fine(daysLate, this);
+            this.fine = new Fine(daysLate, this, feePolicy);
         } else {
             status = "Completed";
+            fine = null;
         }
 
         book.setAvailable(true); // Update book availability
@@ -47,17 +50,17 @@ public class Loan {
         return fine != null;
     }
 
-    // setters & getters
+    // getters & setters
     public String getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public Book getBook() {
         return book;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public LocalDate getLoanDate() {
@@ -72,28 +75,24 @@ public class Loan {
         return returnDate;
     }
 
-    public boolean isDelayed() {
-        return isDelayed;
+    public Fine getFine() {
+        return fine;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public Fine getFine() {
-        return fine;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setLoanDate(LocalDate loanDate) {
@@ -108,16 +107,20 @@ public class Loan {
         this.returnDate = returnDate;
     }
 
-    public void setDelayed(boolean isDelayed) {
-        this.isDelayed = isDelayed;
+    public void setFine(Fine fine) {
+        this.fine = fine;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public void setFine(Fine fine) {
-        this.fine = fine;
+    public FeePolicy getFeePolicy() {
+        return feePolicy;
+    }
+
+    public void setFeePolicy(FeePolicy feePolicy) {
+        this.feePolicy = feePolicy;
     }
 }
 

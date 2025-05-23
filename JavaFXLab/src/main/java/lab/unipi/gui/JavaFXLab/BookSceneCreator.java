@@ -133,7 +133,18 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
         bookTableView.getColumns().add(availabilityColumn);
         
-        
+        //αρχικοποιούμε μερικά βιβλία
+        bookList.add(new Book("978-960-453-709-4", "Fire Punch", "Tatsuki Fujimoto", "Shonen Jump", 2016, "Psychological", false));
+        bookList.add(new Book("123-456-789-012-3", "No longer human", "Osamu Dazai", "Διόπτρα", 1984, "Biography", true));
+        bookList.add(new Book("153-532-529-865-8", "Look Back", "Tatsuki Fujimoto", "VizMedia", 2021, "Drama", true));
+        bookList.add(new Book("213-531-589-759-6", "Goodbye Eri", "Tatsuki Fujimoto", "VizMedia", 2022, "Drama", true));
+        bookList.add(new Book("890-765-432-109-8", "The Stranger", "Albert Camus", "Gallimard", 1942, "Philosophical Fiction", false));
+        bookList.add(new Book("533-585-123-399-7", "Blue Period", "Tsubasa Yamaguchi", "SeinenManga", 2017, "Drama", true));
+        bookList.add(new Book("566-965-180-944-5", "Nineteen-Eightyfour", "George Orwell", "Secker Warburg", 1949, "Social Science Fiction", false));
+        bookList.add(new Book("323-231-395-999-9", "Crime and Punishment", "Fyodor Dostoevsky", "Simon & Schuster", 1866, "Biography", true));
+        bookList.add(new Book("944-234-555-111-5", "To Kill a Mockingbird", "Harper Lee", "Goodreads", 1960, "thriller", true));
+        bookList.add(new Book("132-123-234-555-0", "20th Century Boys", "Naoki Urasawa", "VizMedia", 1969, "Mystery", false));
+        tableSync();
     }
 
     @Override
@@ -219,7 +230,6 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		}
     	}
     }
-    
     
     public void tableSync() { //συγχρονίζουμε τον πίνακα με την οθόνη
     	List<Book> items = bookTableView.getItems();
