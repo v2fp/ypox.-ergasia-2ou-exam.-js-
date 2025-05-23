@@ -19,8 +19,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class StudentSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 
-	// List of books
+	// Lists
 	ArrayList<Student> studentList;
+	ArrayList<Loan> loanList;
 	// Flow Pane 
     FlowPane buttonFlowPane;
     // buttons
@@ -258,6 +259,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 		hGridPane.getChildren().clear();
 		
 		int flag = 1;
+		@SuppressWarnings("unused")
 		Student search = null;
 		for (Student s: studentList) {			
 			if ((s.getId()) == id) {

@@ -43,8 +43,9 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
 
     public LoanSceneCreator(double width, double height) {
         super(width, height);
-        this.loanList = new ArrayList<>();
-
+ 
+        
+        loanList = new ArrayList <>();
         // Initialize GUI components
         rootGridPane = new GridPane();
         buttonFlowPane = new FlowPane();
@@ -174,15 +175,16 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
                     AlertManager.specificAlert("Book not found.");
                     return;
                 }
-                if (!book.available)()) {
+                if (!book.getAvailable()) {
                     AlertManager.specificAlert("Book is not available for loan.");
                     return;
                 }
 
                 LocalDate loanDate = LocalDate.now();
                 LocalDate dueDate = loanDate.plusDays(14);
-
-                Loan loan = new Loan(student, book, loanDate, dueDate);
+               // String id, Student student , Book book, LocalDate loanDate, FeePolicy feePolicy
+                String id = "LN" + System.currentTimeMillis();
+				Loan loan = new Loan(id, student, book, loanDate, feePolicy);
                 loanList.add(loan);
                 book.setAvailable(false);
 
@@ -255,7 +257,7 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
     // Helper methods for finding student, book, and loans
     private Student findStudentById(String studentId) {
         for (Student s : studentList) {
-            if (s.getStudentNumber().equals(studentId)) return s;
+            if (s.getStudentId().equals(studentId)) return s;
         }
         return null;
     }
@@ -269,7 +271,7 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
 
     private Loan findActiveLoan(String studentId, String bookIsbn) {
         for (Loan l : loanList) {
-            if (l.getStudent().getStudentNumber().equals(studentId) && 
+            if (l.getStudent().getPhone().equals(studentId) && 
                 l.getBook().getIsbn().equals(bookIsbn) &&
                 l.getReturnDate() == null) {
                 return l;
@@ -280,7 +282,7 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
 
     private Loan findLoan(String studentId, String bookIsbn) {
         for (Loan l : loanList) {
-            if (l.getStudent().getStudentNumber().equals(studentId) && 
+            if (l.getStudent().getPhone().equals(studentId) && 
                 l.getBook().getIsbn().equals(bookIsbn)) {
                 return l;
             }

@@ -17,8 +17,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PaymentSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
-	 // List of books
+	 // lists
 	ArrayList<Fine> paymentList; 
+	ArrayList<Loan> loanList;
+	ArrayList<Book> bookList;
 	// Flow Pane 
     FlowPane buttonFlowPane;
     // buttons
@@ -91,7 +93,32 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
         }
     	else if (event.getSource() == pendingPaymentsBtn) {
     		AlertManager.infoAlert("", "showing list of pending payments");
-    		for (Loan loan : loanList) {
+    		
+    		//ανανεώνουμε τα TableView data
+    		paymentTableView.getItems().clear();
+    		
+    		TableColumn<Fine, String> studentIdColumn = new TableColumn<>("Student ID");
+            studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+            paymentTableView.getColumns().add(studentIdColumn);
+            
+            TableColumn<Fine, String> isbnColumn = new TableColumn<>("Book ISBN");
+            isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+            paymentTableView.getColumns().add(isbnColumn);
+            
+            TableColumn<Fine, Double> amountColumn = new TableColumn<>("Loan Amount");
+            amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            paymentTableView.getColumns().add(amountColumn);
+            
+            TableColumn<Fine, String> dueDateColumn = new TableColumn<>("Due Date");
+            dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+            paymentTableView.getColumns().add(dueDateColumn);
+            
+            paymentTableView.getColumns().add(studentIdColumn);
+            paymentTableView.getColumns().add(isbnColumn);
+            paymentTableView.getColumns().add(amountColumn);
+            paymentTableView.getColumns().add(dueDateColumn);
+            
+            for (Loan loan : loanList) {
     			
     		}
     	}

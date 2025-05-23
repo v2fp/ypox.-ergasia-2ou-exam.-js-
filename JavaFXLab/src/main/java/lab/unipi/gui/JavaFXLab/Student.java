@@ -39,13 +39,4 @@ public class Student extends User {
     public void setMaxBooks(int maxBooks) {
         this.maxBooks = maxBooks;
     }
-
-    // toString
-    @Override
-    public String toString() {
-        return super.toString() + "\n" +
-               "Student ID: " + studentId + "\n" +
-               "Department: " + department + "\n" +
-               "Max Books: " + maxBooks;
-    }
 }

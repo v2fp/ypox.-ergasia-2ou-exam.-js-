@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class Loan {
 
     private String id;
-    private User user;
+    private Student student;
     private Book book;
     private LocalDate loanDate;
     private LocalDate dueDate;
@@ -16,9 +16,9 @@ public class Loan {
     private Fine fine;
     private FeePolicy feePolicy;
 
-    public Loan(String id, User user, Book book, LocalDate loanDate, FeePolicy feePolicy) {
+    public Loan(String id, Student student, Book book, LocalDate loanDate, FeePolicy feePolicy) {
         this.id = id;
-        this.user = user;
+        this.student = student;
         this.book = book;
         this.loanDate = loanDate;
         this.dueDate = loanDate.plusDays(14);
@@ -28,8 +28,8 @@ public class Loan {
         this.fine = null;
         this.feePolicy = feePolicy;
     }
-
-    // Method called when a book is returned
+    
+	// Method called when a book is returned
     public void returnBook(LocalDate actualReturnDate) {
         this.returnDate = actualReturnDate;
 
@@ -59,8 +59,8 @@ public class Loan {
         return book;
     }
 
-    public User getUser() {
-        return user;
+    public User getStudent() {
+        return student;
     }
 
     public LocalDate getLoanDate() {
@@ -91,8 +91,8 @@ public class Loan {
         this.book = book;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public void setLoanDate(LocalDate loanDate) {
@@ -123,4 +123,3 @@ public class Loan {
         this.feePolicy = feePolicy;
     }
 }
-
