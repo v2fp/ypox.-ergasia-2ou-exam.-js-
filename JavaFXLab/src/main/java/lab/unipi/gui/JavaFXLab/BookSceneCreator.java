@@ -130,7 +130,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
         bookTableView.getColumns().add(categoryColumn);
         
         TableColumn<Book, Boolean> availabilityColumn = new TableColumn<>("availability");
-        availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
+        availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
         bookTableView.getColumns().add(availabilityColumn);
         
         
@@ -141,12 +141,12 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	return new Scene (rootGridPane, width, height); }
 
     @Override
-    public void handle(MouseEvent event) {
+    public void handle(MouseEvent event) { //an patithei to back button o xrisths epistrefetai sto arxiko parathyro
     	if (event.getSource() == backBtn) {
     		App.primaryStage.setTitle("LibraryMainFX Window");
     		App.primaryStage.setScene(App.mainScene);
     	}
-    	else if(event.getSource() == newbookBtn) {
+    	else if(event.getSource() == newbookBtn) { //an patithei to new book button, efoson exoun sumplirwthei ta fields, ta apothikevei kai kalei thn createBook
     		try {	
 	    		String title = titleField.getText();
 	    		String author = authorField.getText();
@@ -167,7 +167,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		}
     	}
     		
-    	else if(event.getSource() == editbookBtn) {
+    	else if(event.getSource() == editbookBtn) { //an patithei to edit book button, apothikevei ta stoixeia kai kalei thn editBook
     		try {
 	    		String title = titleField.getText();
 	    		String author = authorField.getText();
@@ -187,8 +187,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 				AlertManager.unexpectedAlert();
 			}
     	}
-	   	
-    	else if(event.getSource() == deletebookBtn) {
+    	else if(event.getSource() == deletebookBtn) { // an patithei to delete book button, kalei kateutheian thn deleteBook me parametro ton titlo
     		deleteBook(titleField.getText());
     		
     		tableSync();
@@ -197,11 +196,11 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	}
     	
     }
-    public void createBook (String title, String author, String isbn, String publisher, int year, String category, Boolean availability) {
+    public void createBook (String title, String author, String isbn, String publisher, int year, String category, Boolean availability) { //h createBook ftiaxnei ena Book me vash ta stoixeia pou dwthikan kai to apothikevei sto bookList
     	Book b = new Book(title,author,isbn,publisher,year,category,availability);
 		bookList.add(b);
 	}
-    public void editBook(String title, String author, String isbn, String publisher, int year, String category, Boolean availability) {
+    public void editBook(String title, String author, String isbn, String publisher, int year, String category, Boolean availability) { //h editBook elegxei an isxuei o titlos kai allazei analoga ta stoixeia
     	for(Book b: bookList) {
     		if ((b.getTitle()).equals(title)) {
     			b.setAuthor(author);
@@ -213,7 +212,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		}
     	}
     }
-    public void deleteBook(String title) {
+    public void deleteBook(String title) { //h delete book elegxei an uparxei vivlio me ton titlo pou dwthike kai to vgazei apo thn bookList (an uparxei)
     	for(int i = 0; i < bookList.size(); i++) {
     		if (bookList.get(i).getTitle().equals(title)) {
     			bookList.remove(i);
@@ -222,7 +221,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     }
     
     
-    public void tableSync() {
+    public void tableSync() { //συγχρονίζουμε τον πίνακα με την οθόνη
     	List<Book> items = bookTableView.getItems();
     	items.clear();
     	for (Book b : bookList) {
@@ -231,7 +230,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		}
     	}
     }
-    public void ClearTextFields() {
+    public void ClearTextFields() { //κανουμε reset τα fields
     	titleField.setText("");
     	authorField.setText("");
     	isbnField.setText("");

@@ -26,7 +26,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     // buttons
     Button backBtn, newstudentBtn, updatestudentBtn, historyBtn;
 	// Grid Panes
-    GridPane rootGridPane, inputFieldsPane;
+    GridPane rootGridPane, inputFieldsPane, hGridPane;
     // Labels
     Label idLbl, nameLbl, lastLbl, amLbl, emailLbl, classLbl, phoneLbl, dobLbl, maxLbl;
     // TextFields
@@ -144,7 +144,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    yobColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 	    studentTableView.getColumns().add(yobColumn);
 	    
-	    TableColumn<Student, String> maxColumn = new TableColumn<>("Max");
+	    TableColumn<Student, Number> maxColumn = new TableColumn<>("Max");
 	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("maxBooks"));
 	    studentTableView.getColumns().add(maxColumn);
     
@@ -248,11 +248,47 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     	}
 	}
 	public void viewhistory(int id,String name, String last, String am, String email, String Class, String phone, String dob, int max) {
-		for (Student s: studentList) {
+		hGridPane.getChildren().clear();
+		
+		int flag = 1;
+		Student search = null;
+		for (Student s: studentList) {			
 			if ((s.getId()) == id) {
-			// το id κάνει match με φοιτητή, επομένως εμφανίζει το ιστορικό στο grid pane
+// το id κάνει match με φοιτητή, επομένως εμφανίζει το ιστορικό στο grid pane
+				search = s;
+				flag = 0;
+				break;
 			}
 		}
+		
+		if(flag ==1) {
+	        hGridPane.add(new Label("Student with ID " + id + " not found."), 0, 0);
+		}else {
+		    
+		    hGridPane.add(new Label("Book Title"), 0, 0);
+		    hGridPane.add(new Label("Loan Date"), 1, 0);
+		    hGridPane.add(new Label("Due Date"), 2, 0);
+		    hGridPane.add(new Label("Return Date"), 3, 0);
+		    hGridPane.add(new Label("Status"), 4, 0);
+		    int row = 1;
+		   
+		    
+		    for (Loan loan : loanList) {
+		        if (loan.getStudent().getId() == id) {
+		            hGridPane.add(new Label(loan.getBook().getTitle()), 0, row);
+		            hGridPane.add(new Label(loan.getLoanDate().toString()), 1, row);
+		            hGridPane.add(new Label(loan.getDueDate().toString()), 2, row);
+		            hGridPane.add(new Label(loan.getReturnDate() != null ? loan.getReturnDate().toString() : "Not returned"), 3, row);
+		            hGridPane.add(new Label(loan.getStatus()), 4, row);
+		            row++;
+		        }
+		    }
+		    if (row == 1) {
+		        hGridPane.add(new Label("No loan history for this student."), 0, 1);
+		    }
+
+		}
+		
 	}
 	
     public void tableSync() {

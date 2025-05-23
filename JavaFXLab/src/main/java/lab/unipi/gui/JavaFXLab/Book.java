@@ -7,17 +7,17 @@ public class Book {
     private String publisher;
     private int year;
     private String category;
-    private boolean isAvailable;
+    private boolean available;
 
     //Constructor
-    public Book(String isbn, String title, String author, String publisher, int year, String category, boolean isAvailable) {
+    public Book(String isbn, String title, String author, String publisher, int year, String category, boolean available) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.year = year;
         this.category = category;
-        this.isAvailable = isAvailable;
+        this.available = available;
     }
 
     //Getters
@@ -45,8 +45,8 @@ public class Book {
         return category;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public boolean getAvailable() {
+        return available;
     }
 
     //Setters
@@ -74,12 +74,12 @@ public class Book {
         this.category = category;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     //toString
-    @Override
+    /*@Override
     public String toString() {
         return "ISBN: " + isbn + "\n" +
                "Title: " + title + "\n" +
@@ -87,8 +87,8 @@ public class Book {
                "Publisher: " + publisher + "\n" +
                "Year: " + year + "\n" +
                "Category: " + category + "\n" +
-               "Available: " + (isAvailable ? "Yes" : "No");
-    }
+               "Available: " + (available ? "Yes" : "No");
+    }*/
  
 }
 

@@ -42,11 +42,11 @@ public class MainSceneCreator extends SceneCreator implements EventHandler<Mouse
 
     @Override
     public void handle(MouseEvent event) {
-        if(event.getSource() == bookBtn) {
+        if(event.getSource() == bookBtn) { //το book window μας μεταφέρει στο bookScene, δηλαδη στην κλάση BookSceneCreator. Παρομοίως τα υπόλοιπα 3 κουμπιά μας μεταφερουν στις αντιπροσώπευτικες τους σκηνές
             App.primaryStage.setScene(App.bookScene);
             App.primaryStage.setTitle("Book window"); 
         }
-        else if(event.getSource() == studentBtn) {
+        else if(event.getSource() == studentBtn) { 
             App.primaryStage.setScene(App.studentScene);
             App.primaryStage.setTitle("Student window"); 
         }
