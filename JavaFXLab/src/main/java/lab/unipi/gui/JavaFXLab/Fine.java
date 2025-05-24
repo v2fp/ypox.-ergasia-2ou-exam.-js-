@@ -3,7 +3,6 @@ package lab.unipi.gui.JavaFXLab;
 public class Fine {
     private static int counter = 1;
 
-    private Student student;
     private int id;
     private Loan loan;
     private double amount;

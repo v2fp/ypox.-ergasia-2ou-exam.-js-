@@ -23,7 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+@SuppressWarnings("unused")
 public class PaymentSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
 	 // lists
 	ArrayList<Fine> paymentList; 
@@ -37,9 +37,9 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
 	// Grid Panes
     GridPane rootGridPane, inputFieldsPane;
     // Labels
-    Label isbnLbl, idLbl, fineLbl;
+    Label isbnLbl, idLbl, fineLbl, amountLbl;
     // TextFields
-    TextField isbnField,idField,fineField;
+    TextField isbnField,idField,fineField,amountField;
     // TableView
     TableView<Fine> paymentTableView;
     
@@ -48,6 +48,8 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
     	
         	// initialize fields
      paymentList = new ArrayList<>();
+     amountLbl = new Label("Amount");
+     amountField = new TextField("");
      isbnLbl = new Label("ISBN");
      idLbl = new Label("Student ID");
      fineLbl = new Label("Fine Amount");
@@ -107,38 +109,36 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
         	App.primaryStage.setScene(App.mainScene);
         }
     	else if (event.getSource() == pendingPaymentsBtn) { //αν πατηθεί το pending payments button εμφανίζονται όλοι οι φοιτητές με pending πληρωμές
-    		if(paymentList.size() > 0) {
     			showStudents();
     			tableSync();
-    			
-	    	} else AlertManager.specificAlert("There are no pending payments at the moment.");
+    			ClearTextFields();
     	}
     											//αν πατηθεί το entry button τοτε ορίζεται ενα πρόστημο ως πληρωμένο
     	else if (event.getSource()== entryBtn) {
     		AlertManager.infoAlert("Payment entry", "Please enter the Loaned book's ISBN,the student's id, as well as the fine amount");
     		//προσθετουμε fields για να συμπληρωθούν τα στοιχεία 
-    		inputFieldsPane.add(isbnLbl, 0, 0);
-            inputFieldsPane.add(isbnField, 1, 0);
+    		inputFieldsPane.add(amountLbl, 0, 0);
+            inputFieldsPane.add(amountField, 1, 0);
             inputFieldsPane.add(idLbl, 0, 1);
             inputFieldsPane.add(idField, 1, 1);
             inputFieldsPane.add(fineLbl, 0, 2);
             inputFieldsPane.add(fineField, 1, 2);
             
-            String isbn = isbnField.getText();
-            String id = idField.getText();
+            int amount = Integer.parseInt(amountField.getText());
+            int id = Integer.parseInt(fineField.getText());
             int fine = Integer.parseInt(fineField.getText());
     		LocalDate dueDate = LocalDate.now();
 
-    		Loan search = null;
-    		for (Loan l: loanList) {
-    			if ((l.getId()).equals(id) && l.getBook().getIsbn().equals(isbn)) {
-    				search = l;
+    		Fine search = null;
+    		for (Fine f: paymentList) {
+    			if ((f.getId() == id) && f.getAmount()==amount) {
+    				search = f;
     				break;
     			}
     		}
     		if(search != null) {
-    			search.returnBook(search.getReturnDate());
-    			AlertManager.infoAlert("success", "Book was returned successfully");
+    			search.markAsPaid();
+    			AlertManager.infoAlert("success", "Fine was paid off");
     		}
     		else AlertManager.specificAlert("No loans that matched the entries were found");
     		tableSync();
@@ -146,15 +146,10 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
     	}
     	
     	else if (event.getSource() == paymentHistoryBtn) {
-    		int flag = 1;
-    		for(Loan l: loanList) {
-    			if ((l.getStatus().equals("Completed"))) {  // public Loan(String id, Student student, Book book, LocalDate loanDate, FeePolicy feePolicy) {
-    				showPaymentHistory(l);//    public Fine(int overdueDays, Loan loan, FeePolicy feePolicy) {
-   				
-    			}
-    		}
-    	}    	
-    	
+    		showPaymentHistory();
+    		tableSync();
+    		ClearTextFields();
+    	}
     }
      public void showStudents() {
     	 AlertManager.infoAlert("", "showing list of students with pending payments");
@@ -162,7 +157,7 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
  		//ανανεώνουμε τα TableView data
  		paymentTableView.getItems().clear();
  		
- 		TableColumn<Fine, String> idColumn = new TableColumn<>("Id");
+ 		TableColumn<Fine, Number> idColumn = new TableColumn<>("Id");
 	    idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 	    paymentTableView.getColumns().add(idColumn);
 	    
@@ -198,29 +193,28 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("maxBooks"));
 	    paymentTableView.getColumns().add(maxColumn);
          
+	    int count = 0;
          for (Fine p : paymentList) { 
- 			if(p.getPaymentStatus().equals("pending")) {
- 				paymentTableView.getItems().add(p);
+ 			if(p.getPaymentStatus().equals("Pending")) {
+ 				count++;
+ 				paymentTableView.getItems().add(p);			
+ 				if(count ==0) AlertManager.specificAlert("There are no pending payments at the moment.");
  			}
          }
      }
-     public void showPaymentHistory(Loan l) {			//student id, isbn, book title, loanDate, overdueDays
+     public void showPaymentHistory() {			//int overdueDays, Loan loan, FeePolicy feePolicy
     	 //φτιαχνουμε τα columns για την εμφανιση
     	 paymentTableView.getItems().clear();
-    	 
+    	 int count=0;
     	 TableColumn<Fine, String> studentIdColumn = new TableColumn<>("Student ID");
          studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-         paymentTableView.getColumns().add(studentIdColumn);
-         
-         TableColumn<Fine, String> isbnColumn = new TableColumn<>("Book ISBN");
-         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-         paymentTableView.getColumns().add(isbnColumn);
+         paymentTableView.getColumns().add(studentIdColumn);         
          
          TableColumn<Fine, String> titleColumn = new TableColumn<>("Book Title");
          titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
          paymentTableView.getColumns().add(titleColumn);
          
-         TableColumn<Fine, Double> amountColumn = new TableColumn<>("Loan Amount");
+         TableColumn<Fine, Double> amountColumn = new TableColumn<>("Fine Amount");
          amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
          paymentTableView.getColumns().add(amountColumn);
          
@@ -233,10 +227,11 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
          paymentTableView.getColumns().add(overdueDaysColumn);
 	 
     	 for(Fine f: paymentList) {
-				if(f.getLoan().equals(l)) {
+				if(f.getPaymentStatus().equals("Paid")) {
+					count++;
 					paymentTableView.getItems().add(f);
 				}
-			}
+				if(count == 0) AlertManager.specificAlert("No debts have been paid off yet");		
      }
 	public void tableSync() {
 		List<Fine> items = paymentTableView.getItems();

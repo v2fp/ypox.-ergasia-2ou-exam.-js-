@@ -2,7 +2,7 @@ package lab.unipi.gui.JavaFXLab;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
+@SuppressWarnings("unused") 
 public class Loan {
 
     private String id;
@@ -121,5 +121,29 @@ public class Loan {
 
     public void setFeePolicy(FeePolicy feePolicy) {
         this.feePolicy = feePolicy;
+    }
+    public String getStudentDisplayName() {
+        if (student == null) return "";
+        return student.getFirstName() + " " + student.getLastName();
+    }
+
+    public String getBookDisplayTitle() {
+        return book != null ? book.getTitle() : "";
+    }
+
+    public String getLoanDateString() {
+        return loanDate != null ? loanDate.toString() : "";
+    }
+
+    public String getDueDateString() {
+        return dueDate != null ? dueDate.toString() : "";
+    }
+
+    public String getReturnDateString() {
+        return returnDate != null ? returnDate.toString() : "";
+    }
+
+    public String getFineAmountString() {
+        return fine != null ? String.format("%.2f", fine.getAmount()) : "";
     }
 }

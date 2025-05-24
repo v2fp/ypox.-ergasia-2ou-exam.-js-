@@ -182,19 +182,22 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     		String phone = phoneField.getText();
     		String dob = dobField.getText();
     		int max =Integer.parseInt(maxField.getText());
-    		
-    		
-    		createstudent(id,name,last,am,email,Class,phone,dob,max);
-    		
-    		tableSync();
-    		ClearTextFields();
+    		if(CheckValidity.checkPhone(phone)==true) {
+    			if(CheckValidity.emailValidity(email)==true) {
+		    		createstudent(id,name,last,am,email,Class,phone,dob,max);
+		    		tableSync();
+		    		ClearTextFields();
+    			}else {AlertManager.specificAlert("Invalid email format, please try again");
+    			emailField.setText("");}
+    		}else {AlertManager.specificAlert("invalid phone number, please try again");
+    			phoneField.setText("");}
     		AlertManager.infoAlert("Student added", "The student has been added to the  list.");
 			}catch (NumberFormatException e) {
 				AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
 			}catch (Exception e) {
 				AlertManager.unexpectedAlert();
-			}
-    	}
+				}
+	    	}
 	
     	else if(event.getSource() == updatestudentBtn) {
     		try {
@@ -236,7 +239,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
    		}
    	}
 	public void createstudent(int id, String name, String last, String am, String email, String Class, String phone, String dob, int maxBooks) {
-		Student s = new Student( id, name, last, am, email, Class, phone, dob, maxBooks); //allagh
+		Student s = new Student( id, name, last, am, email, Class, phone, dob, maxBooks); 
 		studentList.add(s);
 	}
 	

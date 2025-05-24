@@ -157,6 +157,8 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     		App.primaryStage.setTitle("LibraryMainFX Window");
     		App.primaryStage.setScene(App.mainScene);
     	}
+//    	
+    	
     	else if(event.getSource() == newbookBtn) { //an patithei to new book button, efoson exoun sumplirwthei ta fields, ta apothikevei kai kalei thn createBook
     		try {	
 	    		String title = titleField.getText();
@@ -166,18 +168,24 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 	    		int year = Integer.parseInt(yearField.getText());
 	    		String category = categoryField.getText();
 	    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
-    		
-	    		createBook(title,author,isbn,publisher,year,category,availability);		
-	    		tableSync();
-	    		ClearTextFields();
-	    		AlertManager.infoAlert("Book added.", "The book was added to the list.");
+	    		if(CheckValidity.yearValidity(year) == true) {
+	    			if(CheckValidity.checkIsbn(isbn) == true) {
+	    		
+			    		createBook(title,author,isbn,publisher,year,category,availability);		
+			    		tableSync();
+			    		ClearTextFields();
+			    		AlertManager.infoAlert("Book added.", "The book was added to the list.");
+	    			} else AlertManager.specificAlert("Isbn format is not valid, \nEnter the Isbn in this format: 000-000-000-000-0");
+	    		}else AlertManager.specificAlert("Enter a valid year");
+  		
     		} catch (NumberFormatException e) {
     			AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
     		}catch (Exception e) {
     			AlertManager.unexpectedAlert();
-    		}
+    		}  	
     	}
-    		
+    	
+//    		
     	else if(event.getSource() == editbookBtn) { //an patithei to edit book button, apothikevei ta stoixeia kai kalei thn editBook
     		try {
 	    		String title = titleField.getText();
@@ -186,8 +194,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 	    		String publisher = publisherField.getText();
 	    		int year = Integer.parseInt(yearField.getText());
 	    		String category = categoryField.getText();
-	    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());
-	    		
+	    		Boolean availability = Boolean.parseBoolean(availabilityField.getText());	    		
 	    		editBook(title,author,isbn,publisher,year,category,availability);
 	    		tableSync();
 	    		ClearTextFields();
@@ -198,6 +205,8 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 				AlertManager.unexpectedAlert();
 			}
     	}
+    	
+//    	
     	else if(event.getSource() == deletebookBtn) { // an patithei to delete book button, kalei kateutheian thn deleteBook me parametro ton titlo
     		deleteBook(titleField.getText());
     		

@@ -13,6 +13,8 @@ public class App extends Application {
 
     static ArrayList<Book> bookList = new ArrayList<>();
     static ArrayList<Student> studentList = new ArrayList<>();
+    static ArrayList<Fine> paymentList = new ArrayList<>();
+    static ArrayList<Loan> loanList = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {
