@@ -32,12 +32,4 @@ public class Librarian extends User{
         public void setEducationLevel(String educationLevel) {
             this.educationLevel = educationLevel;
         }
-
-        // toString
-        @Override
-        public String toString() {
-            return super.toString() + "\n" +
-                   "Work Department: " + workDepartment + "\n" +
-                   "Education Level: " + educationLevel;
-        }
     }

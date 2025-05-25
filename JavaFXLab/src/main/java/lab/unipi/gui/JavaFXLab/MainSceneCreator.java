@@ -1,6 +1,5 @@
 package lab.unipi.gui.JavaFXLab;
 
-import java.util.concurrent.Flow;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -9,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 
 public class MainSceneCreator extends SceneCreator implements EventHandler<MouseEvent> {
-    // Flow Pane (root mode
+    // Flow Pane 
     FlowPane rootFlowPane;
     // Main scene buttons
     Button bookBtn, studentBtn, loanBtn, paymentBtn;
