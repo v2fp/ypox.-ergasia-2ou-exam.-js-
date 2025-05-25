@@ -4,6 +4,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	// Flow Pane 
     FlowPane buttonFlowPane;
     // buttons
-    Button backBtn, newstudentBtn, updatestudentBtn, historyBtn;
+    Button backBtn, newstudentBtn, updatestudentBtn, historyBtn, revertBtn;
 	// Grid Panes
     GridPane rootGridPane, inputFieldsPane, hGridPane;
     // Labels
@@ -34,11 +35,13 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     TextField idField, nameField, lastField, amField, emailField, classField, phoneField, dobField, maxField;
     // TableView
     TableView<Student> studentTableView;
+    TableView<Loan> loanTableView;
     
     public StudentSceneCreator(double width, double height) {
     	super(width, height);
 		// initialize fields
 		studentList = new ArrayList<>();
+		hGridPane = new GridPane();
 		rootGridPane = new GridPane();
 		buttonFlowPane = new FlowPane();
 		idLbl = new Label("id: ");
@@ -63,6 +66,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    newstudentBtn = new Button("Εγγραφή νέου φοιτητή");
 	    updatestudentBtn = new Button("Επεξεργασία Στοιχείων Φοιτητή");
 	    historyBtn = new Button("Προβολή Ιστορικού Δανεισμών");    
+	    revertBtn = new Button("Πίσω");
 	    inputFieldsPane = new GridPane();
 	    studentTableView = new TableView<>();
 	    
@@ -71,6 +75,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    newstudentBtn.setOnMouseClicked(this);
 	    updatestudentBtn.setOnMouseClicked(this);
 	    historyBtn.setOnMouseClicked(this);
+	    revertBtn.setOnMouseClicked(this);
 	
 	    //set up Flow pane
 	    buttonFlowPane.setHgap(5);
@@ -103,6 +108,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    inputFieldsPane.add(dobField,1,7);
 	    inputFieldsPane.add(maxLbl, 0, 8);
 	    inputFieldsPane.add(maxField,1,8);
+	    	    
 	    
 	    //customize rootScene
 	    rootGridPane.setVgap(10);
@@ -148,6 +154,7 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    TableColumn<Student, Number> maxColumn = new TableColumn<>("Max");
 	    maxColumn.setCellValueFactory(new PropertyValueFactory<>("maxBooks"));
 	    studentTableView.getColumns().add(maxColumn);
+	    
 	    
 	    //αρχικοποιούμε μερικούς φοιτητές
 	    studentList.add(new Student(1, "Joe", "Smith", "6912345678", "JoeSmith@gmail.com", "21-05-2003", "E24194", "Digital Systems", 5));
@@ -226,15 +233,8 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	
     	else if(event.getSource() == historyBtn) {
     		int id = Integer.parseInt(idField.getText());
-    		String name = nameField.getText();
-    		String last = lastField.getText();
-    		String am = amField.getText();
-    		String email = emailField.getText();
-    		String Class = classField.getText();
-    		String phone = phoneField.getText();
-    		String dob = dobField.getText();
-    		int max = Integer.parseInt(maxField.getText());
-	    	viewhistory(id,name,last,am,email,Class,phone,dob,max);
+    		
+	    	viewhistory(id);
     				
    		}
    	}
@@ -258,49 +258,71 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
     		}
     	}
 	}
-	public void viewhistory(int id,String name, String last, String am, String email, String Class, String phone, String dob, int max) {
-		hGridPane.getChildren().clear();
-		
-		int flag = 1;
-		@SuppressWarnings("unused")
-		Student search = null;
-		for (Student s: studentList) {			
-			if ((s.getId()) == id) {
-// το id κάνει match με φοιτητή, επομένως εμφανίζει το ιστορικό στο grid pane
-				search = s;
-				flag = 0;
-				break;
+	public void viewhistory(int id) {
+		try {
+			hGridPane.getChildren().clear();
+			studentTableView.getColumns().clear();
+			studentTableView.getItems().clear();
+			hGridPane.add(revertBtn,0,1);
+			revertBtn.setAlignment(Pos.BOTTOM_RIGHT);
+			
+			if (loanTableView == null) {
+			loanTableView = new TableView<>();
 			}
-		}
-		
-		if(flag ==1) {
-	        hGridPane.add(new Label("Student with ID " + id + " not found."), 0, 0);
-		}else {
-		    
-		    hGridPane.add(new Label("Book Title"), 0, 0);
-		    hGridPane.add(new Label("Loan Date"), 1, 0);
-		    hGridPane.add(new Label("Due Date"), 2, 0);
-		    hGridPane.add(new Label("Return Date"), 3, 0);
-		    hGridPane.add(new Label("Status"), 4, 0);
-		    int row = 1;
-		    
-		    for (Loan loan : loanList) {	//ψάχνουμε την λίστα δανεισμών, αν το id αντιστοιχεί σε φοιτητή τοτε εμφανίζει τα βιβλία 
-		        if (loan.getStudent().getId() == id) {
-		            hGridPane.add(new Label(loan.getBook().getTitle()), 0, row);
-		            hGridPane.add(new Label(loan.getLoanDate().toString()), 1, row);
-		            hGridPane.add(new Label(loan.getDueDate().toString()), 2, row);
-		            hGridPane.add(new Label(loan.getReturnDate() != null ? loan.getReturnDate().toString() : "Not returned"), 3, row);
-		            hGridPane.add(new Label(loan.getStatus()), 4, row);
-		            row++;
-		        }
-		    }
-		    if (row == 1) {
-		        hGridPane.add(new Label("No loan history for this student."), 0, 1);
-		    }
+			
+			int flag = 0;
+			for (Student s: studentList) {			
+				if ((s.getId()) == id) {
+					flag = 1;
+					// το id κάνει match με φοιτητή, επομένως εμφανίζει το ιστορικό στο Table View
+					rootGridPane.add(hGridPane, 0,1);
+					 hGridPane.add(loanTableView, 0, 0,5,1);
+					
+					AlertManager.infoAlert("Student History", "Showing loan history for " + s.getFirstName() + " " +s.getLastName());		
+					
+					TableColumn<Loan, String> titleColumn = new TableColumn<>("Title");
+			        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));			         
+			        loanTableView.getColumns().add(titleColumn);
+			        
+			        TableColumn<Loan, LocalDate> getDateColumn = new TableColumn<>("Date of loan");
+			        getDateColumn.setCellValueFactory(new PropertyValueFactory<>("loanDate"));			         
+			        loanTableView.getColumns().add(getDateColumn);
+			        
+			        TableColumn<Loan, LocalDate> dueColumn = new TableColumn<>("Due Date");
+			        dueColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));			         
+			        loanTableView.getColumns().add(dueColumn);
+			        
+			        TableColumn<Loan, LocalDate> returnColumn = new TableColumn<>("Return Date");
+			        returnColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));			         
+			        loanTableView.getColumns().add(returnColumn);
+			        
+			        TableColumn<Loan, String> statusColumn = new TableColumn<>("Status");
+			        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));			         
+			        loanTableView.getColumns().add(statusColumn);
+			        
+			        for(Loan l : loanList) {
+			        	if(l.getStudent().getId()==id) {
+			        		loanTableView.getItems().add(l);
+			        	}
+			        }
+			        
+			      
+			        break;
+				}
+			}
+			
+			if(flag == 0) {
+				AlertManager.specificAlert("Student" + id + "not found");
+			}
 
+		}catch (NumberFormatException e) {
+			AlertManager.specificAlert("Invalid input type. \n Exception message: "+ e.getMessage());
+		}catch (Exception e) {
+			AlertManager.specificAlert("Unexpected error" + e.toString());
 		}
 		
 	}
+
 	
     public void tableSync() {
     	List<Student> items = studentTableView.getItems();

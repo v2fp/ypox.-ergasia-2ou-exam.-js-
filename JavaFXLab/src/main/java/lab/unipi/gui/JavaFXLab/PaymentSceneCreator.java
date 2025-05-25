@@ -231,7 +231,10 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
 					count++;
 					paymentTableView.getItems().add(f);
 				}
-				if(count == 0) AlertManager.specificAlert("No debts have been paid off yet");		
+				if(count == 0) {
+					AlertManager.specificAlert("No debts have been paid off yet");		
+				}
+    	 }
      }
 	public void tableSync() {
 		List<Fine> items = paymentTableView.getItems();

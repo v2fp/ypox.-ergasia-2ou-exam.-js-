@@ -17,6 +17,7 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
     ArrayList<Student> studentList;
     ArrayList<Book> bookList;
     ArrayList<Loan> loanList;
+    ArrayList<Fine> fineList;
     FeePolicy feePolicy;
 
     TableView<Loan> loanTableView;
@@ -33,8 +34,8 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
         this.studentList = new ArrayList<>();
         this.bookList = new ArrayList<>();
         this.loanList = new ArrayList<>();
+        this.fineList = new ArrayList<>();
         this.feePolicy = new FeePolicy(height, height);
-        
         
         // Αρχικοποιήσεις Βιβλίων, Φοιτητών και Δανεισμών
 	    studentList.add(new Student(1, "Joe", "Smith", "6912345678", "JoeSmith@gmail.com", "21-05-2003", "E24194", "Digital Systems", 5));
@@ -43,25 +44,30 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
         studentList.add(new Student(4, "Giannis", "Giannopoulos", "6981325430", "G.Giannopoulos@gmail.com", "04-07-2005", "E23010", "Digital Systems", 7));
         studentList.add(new Student(5, "Anne", "Doe", "6930219087", "AnneDoe@gmail.com", "10-04-2006", "E24189", "Economics", 5));
         
-        bookList.add(new Book("978-960-453-709-4", "Fire Punch", "Tatsuki Fujimoto", "Shonen Jump", 2016, "Psychological", true));
+        bookList.add(new Book("978-960-453-709-4", "Fire Punch", "Tatsuki Fujimoto", "Shonen Jump", 2016, "Psychological", false));
         bookList.add(new Book("123-456-789-012-3", "No longer human", "Osamu Dazai", "Διόπτρα", 1984, "Biography", true));
         bookList.add(new Book("153-532-529-865-8", "Look Back", "Tatsuki Fujimoto", "VizMedia", 2021, "Drama", true));
         bookList.add(new Book("213-531-589-759-6", "Goodbye Eri", "Tatsuki Fujimoto", "VizMedia", 2022, "Drama", true));
-        bookList.add(new Book("890-765-432-109-8", "The Stranger", "Albert Camus", "Gallimard", 1942, "Philosophical Fiction", true));
+        bookList.add(new Book("890-765-432-109-8", "The Stranger", "Albert Camus", "Gallimard", 1942, "Philosophical Fiction", false));
         bookList.add(new Book("533-585-123-399-7", "Blue Period", "Tsubasa Yamaguchi", "SeinenManga", 2017, "Drama", true));
-        bookList.add(new Book("566-965-180-944-5", "Nineteen-Eightyfour", "George Orwell", "Secker Warburg", 1949, "Social Science Fiction", true));
+        bookList.add(new Book("566-965-180-944-5", "Nineteen-Eightyfour", "George Orwell", "Secker Warburg", 1949, "Social Science Fiction", false));
         bookList.add(new Book("323-231-395-999-9", "Crime and Punishment", "Fyodor Dostoevsky", "Simon & Schuster", 1866, "Biography", true));
         bookList.add(new Book("944-234-555-111-5", "To Kill a Mockingbird", "Harper Lee", "Goodreads", 1960, "thriller", true));
-        bookList.add(new Book("132-123-234-555-0", "20th Century Boys", "Naoki Urasawa", "VizMedia", 1969, "Mystery", true));
+        bookList.add(new Book("132-123-234-555-0", "20th Century Boys", "Naoki Urasawa", "VizMedia", 1969, "Mystery", false));
         
         loanList.add(new Loan("LN1001", studentList.get(0), bookList.get(0), LocalDate.now().minusDays(2), feePolicy)); 
+
         Loan loan2 = new Loan("LN1002", studentList.get(1), bookList.get(3), LocalDate.now().minusDays(20), feePolicy);
         loan2.returnBook(LocalDate.now().minusDays(5)); 
         loanList.add(loan2);
+        fineList.add(loan2.getFine());
+
         loanList.add(new Loan("LN1003", studentList.get(2), bookList.get(5), LocalDate.now().minusDays(15), feePolicy)); 
         bookList.get(5).setAvailable(false);
+
         loanList.add(new Loan("LN1004", studentList.get(3), bookList.get(7), LocalDate.now().minusDays(1), feePolicy)); 
         bookList.get(7).setAvailable(false);
+        
         
         // --- Κουμπιά φίλτρων στο κέντρο ---
         filterActiveBtn = new Button("Ενεργοί");
@@ -140,7 +146,11 @@ public class LoanSceneCreator extends SceneCreator implements EventHandler<Mouse
                 return;
             }
             LocalDate returnDate = LocalDate.now();
+            
             selectedLoan.returnBook(returnDate);
+            if (selectedLoan.getFine() != null) {
+                fineList.add(selectedLoan.getFine());
+            }
 
             tableSync();
             AlertManager.infoAlert("Επιστροφή βιβλίου", "Η επιστροφή καταγράφηκε επιτυχώς.");
