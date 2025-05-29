@@ -172,7 +172,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
 	    		if(CheckValidity.yearValidity(year) == true) {
 	    			if(CheckValidity.checkIsbn(isbn) == true) {
 	    		//περναμε ολα τα fields στην createBook
-			    		createBook(title,author,isbn,publisher,year,category,availability);		
+			    		createBook(isbn,title,author,publisher,year,category,availability);		
 			    		tableSync();
 			    		ClearTextFields();
 			    		AlertManager.infoAlert("Book added.", "The book was added to the list.");
@@ -221,7 +221,7 @@ public class BookSceneCreator extends SceneCreator implements EventHandler<Mouse
     	Book b = new Book(title,author,isbn,publisher,year,category,availability);
 		bookList.add(b);
 	}
-    public void editBook(String title, String author, String isbn, String publisher, int year, String category, Boolean availability) { //h editBook elegxei an isxuei o titlos kai allazei analoga ta stoixeia
+    public void editBook(String isbn, String title, String author, String publisher, int year, String category, Boolean availability) { //h editBook elegxei an isxuei o titlos kai allazei analoga ta stoixeia
     	for(Book b: bookList) {
     		if ((b.getTitle()).equals(title)) {
     			b.setAuthor(author);

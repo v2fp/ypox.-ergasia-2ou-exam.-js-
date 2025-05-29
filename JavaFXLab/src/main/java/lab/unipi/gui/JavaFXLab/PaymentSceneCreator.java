@@ -58,8 +58,9 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
     	
 	    amountLbl = new Label("Amount");
 	    amountField = new TextField("");
-	    idLbl = new Label("Fine ID");
-	    idField = new TextField("");
+	    isbnLbl = new Label("Book ISBN");
+	    isbnField = new TextField("");
+	    
 	    rootGridPane = new GridPane();
 	    buttonFlowPane = new FlowPane();	
 
@@ -98,8 +99,8 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
 	   //input fields
 		inputFieldsPane.add(amountLbl, 0, 0);
 	    inputFieldsPane.add(amountField, 1, 0);
-	    inputFieldsPane.add(idLbl, 0, 1);
-	    inputFieldsPane.add(idField, 1, 1);
+	    inputFieldsPane.add(isbnLbl, 0, 1);
+	    inputFieldsPane.add(isbnField, 1, 1);
 	
 	            
 	            //customize rootScene
@@ -202,12 +203,12 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
      public void payLoan(){
     	 try {    		     
 	            int amount = Integer.parseInt(amountField.getText()); //αποθηκευομε σε temp τον κωδικο και το ποσό.
-	            String id =idField.getText();	          
+	            String isbn = isbnField.getText();	          
 	    		LocalDate dueDate = LocalDate.now();
 	
 	    		Fine search = null;
 	    		for (Fine f: fineList) { //ψάχνουμε την paymentList για το δάνειο 
-	    			if (f.getLoan().getId().equals(id) && f.getAmount()==amount) {
+	    			if (f.getLoan().getBook().getIsbn().equals(isbn) && f.getAmount()==amount) {
 	    				search = f;
 	    				break;
 	    			}
@@ -307,7 +308,7 @@ public class PaymentSceneCreator extends SceneCreator implements EventHandler<Mo
 
      } 
 	public void ClearTextFields() { //κανουμε reset τα fields
-    	idField.setText("");
+    	isbnField.setText("");
     	amountField.setText("");
     	
     }

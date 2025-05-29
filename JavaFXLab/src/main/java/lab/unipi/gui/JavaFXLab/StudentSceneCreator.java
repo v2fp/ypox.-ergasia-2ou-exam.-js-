@@ -84,7 +84,6 @@ public class StudentSceneCreator extends SceneCreator implements EventHandler<Mo
 	    buttonFlowPane.getChildren().add(backBtn);
 	    buttonFlowPane.getChildren().add(newstudentBtn);
 	    buttonFlowPane.getChildren().add(updatestudentBtn);
-	    buttonFlowPane.getChildren().add(historyBtn);
 	    
 	    //Customize Grid Pane
 	    inputFieldsPane.setAlignment(Pos.TOP_RIGHT);
